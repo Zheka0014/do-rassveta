@@ -24,15 +24,18 @@ self.addEventListener('fetch', event => {
   const request = event.request, url = new URL(request.url);
   if (request.method !== 'GET' || url.origin !== self.location.origin || request.headers.has('range')) return;
   if (request.mode === 'navigate') {
-    // Pages: the network first, so an update arrives as soon as it is published; the cache when offline.
+    // Pages come from the cache of this version too, so the page always matches the game files it loads.
+    // A newly published version is downloaded in the background and takes over at the next start.
     event.respondWith((async () => {
+      const cache = await caches.open(CACHE);
+      const cached = await cache.match(key(request));
+      if (cached) return cached;
       try {
-        const response = await fetch(request);
-        if (response.ok) { const cache = await caches.open(CACHE); await cache.put(key(request), response.clone()); }
+        const response = await network(request);
+        if (response.ok) await cache.put(key(request), response.clone());
         return response;
       } catch {
-        const cache = await caches.open(CACHE);
-        return (await cache.match(key(request))) || (await cache.match(key('./index.html'))) || Response.error();
+        return (await cache.match(key('./index.html'))) || Response.error();
       }
     })());
     return;
@@ -66,7 +69,9 @@ async function warm() {
   try { list = await (await fetch('./precache.json', { cache: 'no-cache' })).json(); } catch { return; }
   if (!list || list.build !== BUILD || !Array.isArray(list.files)) return;
   const cache = await caches.open(CACHE);
-  for (const path of list.files) {
+  for (const [index, path] of list.files.entries()) {
+    // Stop if a newer version has been published meanwhile: its files belong to its own cache.
+    if (index && index % 25 === 0) { try { if ((await (await fetch('./precache.json', { cache: 'no-cache' })).json()).build !== BUILD) return; } catch { return; } }
     if (await cache.match(key(path))) continue;
     try { const response = await network(new Request(path, { cache: 'no-cache' })); if (response.ok) await cache.put(key(path), response); } catch { return; }
   }
