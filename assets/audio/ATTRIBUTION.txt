@@ -1,0 +1,31 @@
+Rain ambience, v35
+
+Original recording: Soft rain.WAV
+Creator: barkenov
+Official source: https://freesound.org/people/barkenov/sounds/640655/
+License: CC0 1.0 Universal / Public Domain Dedication
+License URL: https://creativecommons.org/publicdomain/zero/1.0/
+The official source identifies this as soft rain recorded in the creator's
+garden and labels it with the night, rain and soft tags.
+License and source verified on 2026-10-06.
+
+rain-garden-v35.mp3 is the unmodified, publicly available high-quality preview
+downloaded directly from Freesound's official CDN, without an account:
+https://cdn.freesound.org/previews/640/640655_2414299-hq.mp3
+SHA-256: f5e4d1958e192762dc35e535e79afd30755986e18e7edabade998d84d446e6b9
+Source preview: stereo, 44100 Hz, 61.096667 seconds, 1521720 bytes.
+
+rain-night-v35.mp3 is the game's edited derivative: 55 seconds starting at
+3 seconds; 70 Hz high-pass and 10 kHz low-pass to remove rumble and sharp hiss;
+loudness normalization; high-quality VBR MP3 encoding, stereo, 44100 Hz.
+The complete command used to create the derivative was:
+ffmpeg -i rain-garden-v35.mp3 -ss 3 -t 55 -af
+'highpass=f=70,lowpass=f=10000,loudnorm=I=-22:LRA=9:TP=-6'
+-ar 44100 -ac 2 -c:a libmp3lame -q:a 2 rain-night-v35.mp3
+SHA-256: d03143696c04c9c4ad07a712204b92f5acf7f1dcf3464280a8993dbc90efcbc7
+Measured encoded derivative: -23.2 LUFS integrated, -4.5 dBFS true peak.
+
+The game applies a 1.5-second equal-power crossfade to the decoded stereo
+recording, then loops it with AudioBufferSourceNode. No synthetic noise is
+added to the rain recording. Attribution is provided voluntarily under CC0;
+the creator does not endorse this game.
