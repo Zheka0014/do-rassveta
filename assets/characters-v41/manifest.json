@@ -1,0 +1,57 @@
+{
+  "modelVersion": 41,
+  "identity": "basement-woman",
+  "pose": "supported-all-fours",
+  "adult": true,
+  "clothed": true,
+  "source": "Innerscene / MakeHuman CC0",
+  "sourceURLs": [
+    "https://www.innerscene.com/tools/library/3d-parts/female-base-mesh-3d-person-rigged-a-pose-dba97ed5",
+    "https://www.innerscene.com/tools/library/3d-parts/jordan-3d-person-athlete-a0770454"
+  ],
+  "sourceSHA256": "a571a5872a5f9d75c013ce6d88b3484436cf2109bf133fbc31e42c41f52389f1",
+  "standingHeight": 1.593,
+  "headPosition": [
+    -1.3709908157039204e-8,
+    0.5096959585698255,
+    0.5764341018158268
+  ],
+  "contacts": {
+    "L": {
+      "palmY": 0.0039999999999997815,
+      "knee": [
+        0.14565895867269593,
+        0.04049640466803961,
+        -0.07536815318584733
+      ]
+    },
+    "R": {
+      "palmY": 0.0039999999999997815,
+      "knee": [
+        -0.14565898575780792,
+        0.04049640466803961,
+        -0.07536815318584733
+      ]
+    }
+  },
+  "bounds": {
+    "min": [
+      -0.26935413847207745,
+      0.0039999999999997815,
+      -0.6350931011297858
+    ],
+    "max": [
+      0.26935413847207745,
+      0.6147330479858698,
+      0.6350931011297858
+    ]
+  },
+  "triangles": 71482,
+  "wardrobeSHA256": "a4f9919aee21ad0ad7097cb8311f7555ea8ef731e93c38808bfe5042a5f5b170",
+  "sourcePoseSHA256": "00a9d18dca4b14ba77bc7e1376464a1803a3db4be793d6c11119b3eb0b02a255",
+  "motion": "supported-breathing-morph",
+  "breathingPeriod": 8.8,
+  "extendedShirtVertices": 1273,
+  "clothClearanceAdjustments": 1732,
+  "sewnHems": 5
+}

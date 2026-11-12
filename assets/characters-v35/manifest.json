@@ -1,0 +1,83 @@
+{
+  "watcher": {
+    "triangles": 41660,
+    "bytes": 8874320,
+    "profile": {
+      "tile": 0,
+      "height": 2.04,
+      "hip": 0.97,
+      "chest": 1.345,
+      "shoulder": 1.655,
+      "head": 1.875,
+      "width": 0.275,
+      "headScale": 0.9,
+      "thigh": 0.45,
+      "shin": 0.407,
+      "arm": 0.375,
+      "forearm": 0.33,
+      "coatDrop": 0.4,
+      "coat": 6581598,
+      "hood": true
+    }
+  },
+  "listener": {
+    "triangles": 42595,
+    "bytes": 10070776,
+    "profile": {
+      "tile": 1,
+      "height": 1.81,
+      "hip": 0.84,
+      "chest": 1.21,
+      "shoulder": 1.44,
+      "head": 1.65,
+      "width": 0.26,
+      "headScale": 0.86,
+      "thigh": 0.39,
+      "shin": 0.337,
+      "arm": 0.34,
+      "forearm": 0.31,
+      "coat": 7828329,
+      "hunch": 0.18
+    }
+  },
+  "double": {
+    "triangles": 41260,
+    "bytes": 8862088,
+    "profile": {
+      "tile": 2,
+      "height": 1.84,
+      "hip": 0.86,
+      "chest": 1.23,
+      "shoulder": 1.48,
+      "head": 1.68,
+      "width": 0.25,
+      "headScale": 0.86,
+      "thigh": 0.39,
+      "shin": 0.35,
+      "arm": 0.36,
+      "forearm": 0.34,
+      "coat": 7568752,
+      "hood": true
+    }
+  },
+  "stone": {
+    "triangles": 41595,
+    "bytes": 10030376,
+    "profile": {
+      "tile": 3,
+      "height": 1.98,
+      "hip": 0.93,
+      "chest": 1.35,
+      "shoulder": 1.6,
+      "head": 1.82,
+      "width": 0.26,
+      "headScale": 0.89,
+      "thigh": 0.42,
+      "shin": 0.4,
+      "arm": 0.39,
+      "forearm": 0.38,
+      "coat": 12566709,
+      "hunch": 0.045
+    }
+  }
+}
