@@ -254,6 +254,7 @@ export const EN = Object.freeze({
   "ГОТОВИМ ЛЕС…": "PREPARING THE FOREST…",
   "Кадр: ": "Frame: ",
   "Кадр:": "Frame:",
+  "ПОВТОРЯЕМ ЗАГРУЗКУ…": "RETRYING THE DOWNLOAD…",
   "Не удалось загрузить окружение. Обнови страницу, чтобы повторить загрузку.": "Could not load the environment. Refresh the page to try again.",
   "ОКРУЖЕНИЕ НЕ ЗАГРУЖЕНО": "ENVIRONMENT NOT LOADED",
   "Не удалось включить 3D. Открой игру в современном браузере с аппаратным ускорением.": "Could not enable 3D. Use a modern browser with hardware acceleration.",

@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {createHorrorCharacter,animateCharacter} from './horror-characters.js?v=20261112-forest48-r2';
+import {createHorrorCharacter,animateCharacter} from './horror-characters.js?v=20261113-forest48-r3';
 
 export function buildPlayerBody(f){
  const root=new T.Group();root.name='Тело игрока';f.scene.add(root);root.visible=false;

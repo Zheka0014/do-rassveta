@@ -1,5 +1,5 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261112-forest48-r2';
-import {HandMotion} from './hand-motion.js?v=20261112-forest48-r2';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest48-r3';
+import {HandMotion} from './hand-motion.js?v=20261113-forest48-r3';
 import * as T from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 

@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {frontToBack} from './instance-order.js?v=20261112-forest48-r2';
+import {frontToBack} from './instance-order.js?v=20261113-forest48-r3';
 
 export function compactPlants(batch,records,frustum,position,range){
  let count=0;

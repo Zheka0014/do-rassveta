@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {buildAuthoredHead} from './authored-head.js?v=20261112-forest48-r2';
+import {buildAuthoredHead} from './authored-head.js?v=20261113-forest48-r3';
 
 // Modified from Infinite, 3D Head Scan by Lee Perry-Smith / triplegangers.com.
 // CC BY 3.0. See assets/characters-v35/ATTRIBUTION.txt.

@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {damp,dampAngle} from './smooth-motion.js?v=20261112-forest48-r2';
+import {damp,dampAngle} from './smooth-motion.js?v=20261113-forest48-r3';
 const controllers=new WeakMap(),clamp=T.MathUtils.clamp;
 const clean=name=>name.replace(/mixamorig:?/,'').replace(/_0\d+$/,'');
 const v=new T.Vector3(),a=new T.Vector3(),b=new T.Vector3(),c=new T.Vector3(),direction=new T.Vector3(),bend=new T.Vector3(),goalKnee=new T.Vector3(),q=new T.Quaternion(),parentQ=new T.Quaternion();

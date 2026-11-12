@@ -2,7 +2,7 @@
 // after the first visit. Each build has its own cache; an old cache is removed when
 // the new version takes over, which happens the next time the game is opened, so a
 // running night is never interrupted by an update.
-const BUILD = '20261112-forest48-r2';
+const BUILD = '20261113-forest48-r3';
 const CACHE = 'do-rassveta-' + BUILD;
 const CORE = ['./', './index.html', './manifest.json', './privacy.html', './icons/icon-192.png', './icons/icon-512.png'];
 
@@ -42,11 +42,19 @@ self.addEventListener('fetch', event => {
     const cache = await caches.open(CACHE);
     const cached = await cache.match(key(request));
     if (cached) return cached;
-    const response = await fetch(request);
+    const response = await network(request);
     if (response.ok && response.type === 'basic') cache.put(key(request), response.clone()).catch(() => {});
     return response;
   })());
 });
+
+// A slow or unstable connection sometimes drops one of many downloads: try twice more before giving up.
+async function network(request) {
+  for (let attempt = 0; ; attempt++) {
+    try { return await fetch(request); }
+    catch (error) { if (attempt >= 2) throw error; await new Promise(resolve => setTimeout(resolve, 1000 * (attempt + 1))); }
+  }
+}
 
 // After the menu is ready the page asks for the rest of the game, so the whole night can be played offline.
 let warming = null;
@@ -60,6 +68,6 @@ async function warm() {
   const cache = await caches.open(CACHE);
   for (const path of list.files) {
     if (await cache.match(key(path))) continue;
-    try { const response = await fetch(path, { cache: 'no-cache' }); if (response.ok) await cache.put(key(path), response); } catch { return; }
+    try { const response = await network(new Request(path, { cache: 'no-cache' })); if (response.ok) await cache.put(key(path), response); } catch { return; }
   }
 }

@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
-import {batchStaticMeshes} from './render-batching.js?v=20261112-forest48-r2';
-import {ageTimber,endGrainTexture} from './surfaces.js?v=20261112-forest48-r2';
+import {batchStaticMeshes} from './render-batching.js?v=20261113-forest48-r3';
+import {ageTimber,endGrainTexture} from './surfaces.js?v=20261113-forest48-r3';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 
 // Individual timbers retain their grain and uneven silhouette; geometry is

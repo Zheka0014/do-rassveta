@@ -1,4 +1,4 @@
-import {EN} from './locale-en.js?v=20261112-forest48-r2';
+import {EN} from './locale-en.js?v=20261113-forest48-r3';
 
 let language=typeof location==='object'&&new URLSearchParams(location.search).get('lang')==='en'?'en':'ru';
 const listeners=new Set(),cyrillic=/[А-Яа-яЁё]/;

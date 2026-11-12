@@ -1,27 +1,27 @@
-import {advancePlayerTravel} from './player-travel.js?v=20261112-forest48-r2';
-import {advanceGroundActor} from './actor-travel.js?v=20261112-forest48-r2';
-import {WatcherTactics,CreatureCadence,CREATURE_SOUND_PROFILES} from './forest-behavior.js?v=20261112-forest48-r2';
-import {MotionResponse,LookResponse,CameraResponse,motionDelta} from './smooth-motion.js?v=20261112-forest48-r2';
-import {GraphicsPreparation} from './preparation.js?v=20261112-forest48-r2';
-import {installLocalization,translate,getLanguage,setLanguage,onLanguageChange} from './i18n.js?v=20261112-forest48-r2';
-import {Settings} from './settings.js?v=20261112-forest48-r2';
-import {platform} from './platform.js?v=20261112-forest48-r2';
-import {ACHIEVEMENTS,AchievementTracker,achievementText,endOfRunAchievements} from './achievements.js?v=20261112-forest48-r2';
-import {GamepadState,PAD_ACTIONS,PAD_GLYPHS,padText,nextFocus} from './gamepad.js?v=20261112-forest48-r2';
-import {ITEMS,iconFor,hasContents,takeContents,interactionScore} from './inventory.js?v=20261112-forest48-r2';
-import {TRAIN,inTrain,footNoise} from './sound-horror.js?v=20261112-forest48-r2';
-import {SWAMP,MILL,PIT,ROOTS,inSwamp,inMill,inPit} from './expedition.js?v=20261112-forest48-r2';
-import {HandAction,FearPacing,StormClock,CHAPEL,inChapel,surfaceAt} from './weather-horror.js?v=20261112-forest48-r2';
-import {PursuitSight,CROUCH_HEIGHT,ATTIC_FLOOR,PHOTO_SECRETS,lookedAt,playerLevel} from './exploration.js?v=20261112-forest48-r2';
-import {StoryNight,WatcherMemory,phaseAt} from './story.js?v=20261112-forest48-r2';
-import {Forest,heightAt,seeded} from './world.js?v=20261112-forest48-r2';
-import {cemeteryReserved} from './horror-director.js?v=20261112-forest48-r2';
-import {inBasementRoom,onStairs} from './encounters.js?v=20261112-forest48-r2';
-import {HorrorDirector,CEMETERY} from './horror-director.js?v=20261112-forest48-r2';
-import {Run,formatTime} from './core.js?v=20261112-forest48-r2';
-import {ForestAudio} from './audio.js?v=20261112-forest48-r2';
-import {PlayerJump,PLAYER_HEIGHT,JUMP_COST} from './movement.js?v=20261112-forest48-r2';
-import {CHARACTER_PROFILES} from './horror-characters.js?v=20261112-forest48-r2';
+import {advancePlayerTravel} from './player-travel.js?v=20261113-forest48-r3';
+import {advanceGroundActor} from './actor-travel.js?v=20261113-forest48-r3';
+import {WatcherTactics,CreatureCadence,CREATURE_SOUND_PROFILES} from './forest-behavior.js?v=20261113-forest48-r3';
+import {MotionResponse,LookResponse,CameraResponse,motionDelta} from './smooth-motion.js?v=20261113-forest48-r3';
+import {GraphicsPreparation} from './preparation.js?v=20261113-forest48-r3';
+import {installLocalization,translate,getLanguage,setLanguage,onLanguageChange} from './i18n.js?v=20261113-forest48-r3';
+import {Settings} from './settings.js?v=20261113-forest48-r3';
+import {platform} from './platform.js?v=20261113-forest48-r3';
+import {ACHIEVEMENTS,AchievementTracker,achievementText,endOfRunAchievements} from './achievements.js?v=20261113-forest48-r3';
+import {GamepadState,PAD_ACTIONS,PAD_GLYPHS,padText,nextFocus} from './gamepad.js?v=20261113-forest48-r3';
+import {ITEMS,iconFor,hasContents,takeContents,interactionScore} from './inventory.js?v=20261113-forest48-r3';
+import {TRAIN,inTrain,footNoise} from './sound-horror.js?v=20261113-forest48-r3';
+import {SWAMP,MILL,PIT,ROOTS,inSwamp,inMill,inPit} from './expedition.js?v=20261113-forest48-r3';
+import {HandAction,FearPacing,StormClock,CHAPEL,inChapel,surfaceAt} from './weather-horror.js?v=20261113-forest48-r3';
+import {PursuitSight,CROUCH_HEIGHT,ATTIC_FLOOR,PHOTO_SECRETS,lookedAt,playerLevel} from './exploration.js?v=20261113-forest48-r3';
+import {StoryNight,WatcherMemory,phaseAt} from './story.js?v=20261113-forest48-r3';
+import {Forest,heightAt,seeded} from './world.js?v=20261113-forest48-r3';
+import {cemeteryReserved} from './horror-director.js?v=20261113-forest48-r3';
+import {inBasementRoom,onStairs} from './encounters.js?v=20261113-forest48-r3';
+import {HorrorDirector,CEMETERY} from './horror-director.js?v=20261113-forest48-r3';
+import {Run,formatTime} from './core.js?v=20261113-forest48-r3';
+import {ForestAudio} from './audio.js?v=20261113-forest48-r3';
+import {PlayerJump,PLAYER_HEIGHT,JUMP_COST} from './movement.js?v=20261113-forest48-r3';
+import {CHARACTER_PROFILES} from './horror-characters.js?v=20261113-forest48-r3';
 const keyboardHint=document.getElementById('controlsHint').textContent;
 for(const node of document.querySelectorAll('[data-key]'))node.dataset.label=node.textContent;
 installLocalization(document);
@@ -50,10 +50,16 @@ onLanguageChange(language=>{settings.set('language',language);platform.setLangua
 const coarse=matchMedia('(pointer:coarse)').matches;
 const preparation=new GraphicsPreparation(()=>forest.prepareGraphics(),value=>{ready=value;$('start').disabled=$('resume').disabled=!value;$('start').textContent=value?'ВОЙТИ В ЛЕС':'ПОДГОТАВЛИВАЕМ СВЕТ И ЭФФЕКТЫ…';$('graphicsStatus').hidden=value;$('graphicsStatus').textContent='ПОДГОТАВЛИВАЕМ СВЕТ И ЭФФЕКТЫ…';});
 $('start').disabled=true;$('start').textContent='ГОТОВИМ ЛЕС…';
+const RELOAD_KEY='do-rassveta.reload';
 try{
  forest=new Forest($('world'));forest.onResolutionChange=(w,h)=>$('renderSize').textContent='Кадр: '+w+' × '+h;forest.onResolutionChange(forest.canvas.width,forest.canvas.height);
  applySettings();
- forest.ready.then(()=>preparation.request()).catch(error=>{$('loadError').hidden=false;$('loadError').textContent='Не удалось загрузить окружение. Обнови страницу, чтобы повторить загрузку.';$('start').textContent='ОКРУЖЕНИЕ НЕ ЗАГРУЖЕНО';console.error(error);});
+ forest.ready.then(()=>{try{sessionStorage.removeItem(RELOAD_KEY);}catch{}return preparation.request();}).catch(error=>{console.error(error);
+  // On a slow or unstable connection one of the many downloads can fail. Files already received come
+  // from the cache, so a quiet reload (at most twice) usually finishes the job without the player noticing.
+  let tries=null;try{tries=+(sessionStorage.getItem(RELOAD_KEY)||0);sessionStorage.setItem(RELOAD_KEY,String(tries+1));}catch{tries=null;}
+  if(tries!==null&&tries<2&&/^https?:$/.test(location.protocol)&&navigator.onLine!==false){$('start').textContent='ПОВТОРЯЕМ ЗАГРУЗКУ…';setTimeout(()=>location.reload(),1500);return;}
+  $('loadError').hidden=false;$('loadError').textContent='Не удалось загрузить окружение. Обнови страницу, чтобы повторить загрузку.';$('start').textContent='ОКРУЖЕНИЕ НЕ ЗАГРУЖЕНО';});
 }catch(error){$('loadError').hidden=false;$('loadError').textContent='Не удалось включить 3D. Открой игру в современном браузере с аппаратным ускорением.';$('start').textContent='3D НЕДОСТУПНО';console.error(error);}
 const isPlaying=()=>run?.status==='playing';
 const hint=text=>usingPad?padText(translate(text)):text;

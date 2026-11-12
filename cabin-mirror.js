@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {MirrorView} from './mirror-view.js?v=20261112-forest48-r2';
+import {MirrorView} from './mirror-view.js?v=20261113-forest48-r3';
 
 // A tightly framed planar reflection, rendered only from inside the cabin.
 export function buildCabinMirror(f,logic,wood,iron){
