@@ -1,0 +1,34 @@
+Do Rassveta — character geometry v35-r21
+
+Watcher and Double heads:
+MakeHuman hm08 anatomical base mesh.
+Source: https://github.com/makehumancommunity/makehuman/blob/master/makehuman/data/3dobjs/base.obj
+License: Creative Commons Zero 1.0 Universal (CC0 1.0)
+https://creativecommons.org/publicdomain/zero/1.0/
+The original source file explicitly declares release to CC0 in September 2020.
+Copyright holders at that release: Data Collection AB, Joel Palmius, Jonas Hauquier.
+Modified: head extracted from the body, scaled, lower neck clipped; source
+open eyelids, lips and eye joint centres preserved. Separate globe/iris/pupil
+geometry placed at the original eye joints, recessed oral interior and scars.
+Source and SHA-256 preserved in references/characters-v35/makehuman-source.json.
+Extraction: scripts/extract-makehuman-head.py.
+
+Listener and Stone heads:
+Infinite, 3D Head Scan by Lee Perry-Smith, based on triplegangers.com.
+Source: https://github.com/mrdoob/three.js/tree/dev/examples/models/gltf/LeePerrySmith
+License: Creative Commons Attribution 3.0 Unported (CC BY 3.0)
+https://creativecommons.org/licenses/by/3.0/
+Modified: mesh scaled and trimmed; shallow gaunt cheeks/stone surface variation,
+Listener eyelid stitches and healed scars; new skin textures. Original closed
+lids and sculpted lip seam preserved. No added eye globes on these closed lids.
+
+Full-body meshes, garments, hands, boots and articulated hierarchy authored
+in character-sculpt.js. Export: scripts/export-characters.mjs.
+Character concepts and skin/cloth albedo atlases generated with imagegen.
+Actual atlas dimensions: 1254 x 1254 pixels.
+
+Basement woman (v39): a distinct clothed variant of the MakeHuman-based Double,
+with reshaped head, dedicated gravity-oriented hair, supported hands/knees and
+fabric joint transitions. Reuses the same CC0 head source and local texture
+atlases. Generated at load time by basement-woman.js and basement-hair.js;
+not an additional scan or an external stock model.
