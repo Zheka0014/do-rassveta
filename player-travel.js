@@ -1,5 +1,5 @@
-import {STEP_HEIGHT} from './movement.js?v=20261113-forest48-r3';
-import {motionDelta,motionSteps} from './smooth-motion.js?v=20261113-forest48-r3';
+import {STEP_HEIGHT} from './movement.js?v=20261113-forest49';
+import {motionDelta,motionSteps} from './smooth-motion.js?v=20261113-forest49';
 
 // Feet and camera advance together. Sampling feet just once per rendered frame
 // loses the landing impact and changes the camera's lag on stairs at low FPS.

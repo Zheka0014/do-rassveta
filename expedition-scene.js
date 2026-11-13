@@ -1,9 +1,9 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest48-r3';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
-import {buildCrate} from './crate-model.js?v=20261113-forest48-r3';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {buildCrate} from './crate-model.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {ExpeditionNight,SWAMP,MILL,PIT,ROOTS,PERCHES} from './expedition.js?v=20261113-forest48-r3';
-import {buildCabinMirror} from './cabin-mirror.js?v=20261113-forest48-r3';
+import {ExpeditionNight,SWAMP,MILL,PIT,ROOTS,PERCHES} from './expedition.js?v=20261113-forest49';
+import {buildCabinMirror} from './cabin-mirror.js?v=20261113-forest49';
 const v=(x,y,z)=>new T.Vector3(x,y,z);
 function batch(parent){const bins=new Map();return {add(g,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){g.applyMatrix4(new T.Matrix4().compose(v(x,y,z),new T.Quaternion().setFromEuler(new T.Euler(rx,ry,rz)),v(1,1,1)));if(!bins.has(m))bins.set(m,[]);bins.get(m).push(g);},box(w,h,d,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){this.add(new T.BoxGeometry(w,h,d),m,x,y,z,rx,ry,rz);},done(){for(const [m,gs]of bins){const mesh=new T.Mesh(mergeRetainedGeometry(gs),m);mesh.castShadow=mesh.receiveShadow=true;parent.add(mesh);gs.forEach(g=>g.dispose());}}};}
 function plate(text,w=1024,h=512){const c=document.createElement('canvas');c.width=w;c.height=h;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle='#343b31';a.fillRect(0,0,w,h);for(let i=0;i<1800;i++){a.fillStyle='rgba(12,16,9,.10)';a.fillRect((i*137)%w,(i*71)%h,1+(i%11),2+(i%4));}a.strokeStyle='#9b9980';a.lineWidth=5;a.strokeRect(25,25,w-50,h-50);a.fillStyle='#c2b89a';a.font='bold 62px Georgia';a.textAlign='center';text.split('\n').forEach((s,i)=>a.fillText(translate(s),w/2,150+i*105,w-90));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return new T.MeshStandardMaterial({map,roughness:.96});}

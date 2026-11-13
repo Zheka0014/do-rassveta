@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {buildAnatomicalHead} from './anatomical-head.js?v=20261113-forest48-r3';
+import {buildAnatomicalHead} from './anatomical-head.js?v=20261113-forest49';
 
 // Geometry authoring shared by the GLB exporter and the modelling tests.
 // Runtime characters load the exported assets, rather than rebuilding them.

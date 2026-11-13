@@ -7,7 +7,7 @@ export const DEFAULT_SETTINGS=Object.freeze({
  cinematic:true,particles:true,liveMenu:true,padSensitivity:100,vibration:true
 });
 const RANGES={volume:[0,100],sensitivity:[20,180],brightness:[75,155],fov:[55,90],padSensitivity:[40,200]};
-const CHOICES={language:['','ru','en'],quality:['low','high','ultra'],resolution:['auto','fhd','qhd','uhd','native']};
+const CHOICES={language:['','ru','en'],quality:['low','high','ultra'],resolution:['auto','hd','fhd','qhd','uhd','native']};
 const FLAGS=['bobbing','invertY','cinematic','particles','liveMenu','vibration'];
 
 // Returns the accepted value, or undefined for anything that does not belong to the key.
@@ -23,15 +23,17 @@ export function sanitizeSettings(raw){
  return clean;
 }
 export class Settings{
- constructor(storage=null,key=SETTINGS_KEY){this.storage=storage;this.key=key;this.chosen={};}
+ constructor(storage=null,key=SETTINGS_KEY){this.storage=storage;this.key=key;this.chosen={};this.defaults=DEFAULT_SETTINGS;}
+ // Starting values for a device (the console models); a value the player chose still wins.
+ useDefaults(overrides){this.defaults=Object.freeze({...DEFAULT_SETTINGS,...sanitizeSettings(overrides)});return this;}
  load(){
   try{const text=this.storage?.getItem(this.key);this.chosen=text?sanitizeSettings(JSON.parse(text)):{};}catch{this.chosen={};}
   return this;
  }
  has(key){return Object.hasOwn(this.chosen,key);}
- get(key){return this.has(key)?this.chosen[key]:DEFAULT_SETTINGS[key];}
+ get(key){return this.has(key)?this.chosen[key]:this.defaults[key];}
  // Returns true when the stored value changed.
  set(key,value){const clean=validSetting(key,value);if(clean===undefined||this.chosen[key]===clean)return false;this.chosen[key]=clean;this.save();return true;}
  save(){try{this.storage?.setItem(this.key,JSON.stringify(this.chosen));return true;}catch{return false;}}
- all(){return {...DEFAULT_SETTINGS,...this.chosen};}
+ all(){return {...this.defaults,...this.chosen};}
 }

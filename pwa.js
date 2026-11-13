@@ -1,11 +1,12 @@
 // Installable web app (PWA): registers the service worker that keeps the game for offline play.
 // Only on a real https site. On the local development server it stays off (add ?sw=1 to test it),
-// so edits are never hidden behind a cache; the desktop (Steam) shell does not need it.
+// so edits are never hidden behind a cache; the desktop (Steam) and console (Xbox) shells,
+// which carry every file inside the package, do not need it.
 const query = new URLSearchParams(location.search);
 const local = ['localhost', '127.0.0.1'].includes(location.hostname);
 const wanted = location.protocol === 'https:' ? !query.has('nosw') : local && query.has('sw');
 
-if ('serviceWorker' in navigator && wanted && !window.desktop) {
+if ('serviceWorker' in navigator && wanted && !window.desktop && !window.xboxHost) {
   // Registered right away: the page's load event waits for every model and texture of the game,
   // and installing the worker itself downloads only the start page, manifest, policy and icons.
   navigator.serviceWorker.register('./sw.js', { scope: './' }).then(() => navigator.serviceWorker.ready).then(registration => {

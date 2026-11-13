@@ -1,5 +1,5 @@
 {
- "build": "20261113-forest48-r3",
+ "build": "20261113-forest49",
  "files": [
   "./achievements.js",
   "./actor-travel.js",
@@ -183,6 +183,7 @@
   "./volume-depth.js",
   "./volume-noise.js",
   "./weather-horror.js",
-  "./world.js"
+  "./world.js",
+  "./xbox.js"
  ]
 }

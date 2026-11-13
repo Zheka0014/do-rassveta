@@ -1,8 +1,8 @@
-import {soundReserved} from './sound-horror.js?v=20261113-forest48-r3';
-import {expeditionReserved} from './expedition.js?v=20261113-forest48-r3';
-import {chapelReserved} from './weather-horror.js?v=20261113-forest48-r3';
-import {explorationReserved,playerLevel} from './exploration.js?v=20261113-forest48-r3';
-import {storyReserved} from './story.js?v=20261113-forest48-r3';
+import {soundReserved} from './sound-horror.js?v=20261113-forest49';
+import {expeditionReserved} from './expedition.js?v=20261113-forest49';
+import {chapelReserved} from './weather-horror.js?v=20261113-forest49';
+import {explorationReserved,playerLevel} from './exploration.js?v=20261113-forest49';
+import {storyReserved} from './story.js?v=20261113-forest49';
 export const FALSE_CAMPS=[{id:0,x:18,z:14},{id:1,x:-38,z:13}];
 export const TRAPS=[
  {id:0,type:'jaw',x:-1,z:9,r:.29},{id:1,type:'jaw',x:9,z:-24,r:.29},

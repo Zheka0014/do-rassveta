@@ -1,5 +1,8 @@
-import {EN} from './locale-en.js?v=20261113-forest48-r3';
+import {EN} from './locale-en.js?v=20261113-forest49';
 
+// An optional last step for shown texts (the console edition writes keys as controller buttons).
+let displayFilter=null;
+export function setDisplayFilter(filter){displayFilter=typeof filter==='function'?filter:null;}
 let language=typeof location==='object'&&new URLSearchParams(location.search).get('lang')==='en'?'en':'ru';
 const listeners=new Set(),cyrillic=/[А-Яа-яЁё]/;
 const escape=s=>s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
@@ -22,17 +25,17 @@ export function setLanguage(next){
 export function installLocalization(doc){
  const sources=new WeakMap(),attributes=new WeakMap(),names=['aria-label','alt','title','placeholder'];
  function textNode(node){
-  if(['SCRIPT','STYLE'].includes(node.parentElement?.tagName))return;
+  if(['SCRIPT','STYLE'].includes(node.parentElement?.tagName)||node.parentElement?.closest('[translate="no"]'))return;
   const current=node.data,previous=sources.get(node);
   const source=previous&&current===previous.rendered?previous.source:current;
-  const rendered=translate(source);sources.set(node,{source,rendered});if(current!==rendered)node.data=rendered;
+  const translated=translate(source),rendered=displayFilter?displayFilter(translated,node):translated;sources.set(node,{source,rendered});if(current!==rendered)node.data=rendered;
  }
  function element(node){
   let saved=attributes.get(node);if(!saved){saved=new Map();attributes.set(node,saved);}
   const attrs=node.tagName==='META'&&node.getAttribute('name')==='description'?[...names,'content']:names;
   for(const name of attrs){if(!node.hasAttribute(name))continue;const current=node.getAttribute(name),old=saved.get(name),source=old&&current===old.rendered?old.source:current,rendered=translate(source);saved.set(name,{source,rendered});if(current!==rendered)node.setAttribute(name,rendered);}
  }
- function visit(node){if(node.nodeType===3)textNode(node);else if(node.nodeType===1){if(['SCRIPT','STYLE'].includes(node.tagName))return;element(node);for(const child of node.childNodes)visit(child);}}
+ function visit(node){if(node.nodeType===3)textNode(node);else if(node.nodeType===1){if(['SCRIPT','STYLE'].includes(node.tagName)||node.getAttribute('translate')==='no')return;element(node);for(const child of node.childNodes)visit(child);}}
  function refresh(){
   doc.documentElement.lang=language;visit(doc.documentElement);
   for(const id of ['languageMenu','language']){const select=doc.getElementById(id);if(select)select.value=language;}

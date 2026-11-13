@@ -1,29 +1,38 @@
-import {advancePlayerTravel} from './player-travel.js?v=20261113-forest48-r3';
-import {advanceGroundActor} from './actor-travel.js?v=20261113-forest48-r3';
-import {WatcherTactics,CreatureCadence,CREATURE_SOUND_PROFILES} from './forest-behavior.js?v=20261113-forest48-r3';
-import {MotionResponse,LookResponse,CameraResponse,motionDelta} from './smooth-motion.js?v=20261113-forest48-r3';
-import {GraphicsPreparation} from './preparation.js?v=20261113-forest48-r3';
-import {installLocalization,translate,getLanguage,setLanguage,onLanguageChange} from './i18n.js?v=20261113-forest48-r3';
-import {Settings} from './settings.js?v=20261113-forest48-r3';
-import {platform} from './platform.js?v=20261113-forest48-r3';
-import {ACHIEVEMENTS,AchievementTracker,achievementText,endOfRunAchievements} from './achievements.js?v=20261113-forest48-r3';
-import {GamepadState,PAD_ACTIONS,PAD_GLYPHS,padText,nextFocus} from './gamepad.js?v=20261113-forest48-r3';
-import {ITEMS,iconFor,hasContents,takeContents,interactionScore} from './inventory.js?v=20261113-forest48-r3';
-import {TRAIN,inTrain,footNoise} from './sound-horror.js?v=20261113-forest48-r3';
-import {SWAMP,MILL,PIT,ROOTS,inSwamp,inMill,inPit} from './expedition.js?v=20261113-forest48-r3';
-import {HandAction,FearPacing,StormClock,CHAPEL,inChapel,surfaceAt} from './weather-horror.js?v=20261113-forest48-r3';
-import {PursuitSight,CROUCH_HEIGHT,ATTIC_FLOOR,PHOTO_SECRETS,lookedAt,playerLevel} from './exploration.js?v=20261113-forest48-r3';
-import {StoryNight,WatcherMemory,phaseAt} from './story.js?v=20261113-forest48-r3';
-import {Forest,heightAt,seeded} from './world.js?v=20261113-forest48-r3';
-import {cemeteryReserved} from './horror-director.js?v=20261113-forest48-r3';
-import {inBasementRoom,onStairs} from './encounters.js?v=20261113-forest48-r3';
-import {HorrorDirector,CEMETERY} from './horror-director.js?v=20261113-forest48-r3';
-import {Run,formatTime} from './core.js?v=20261113-forest48-r3';
-import {ForestAudio} from './audio.js?v=20261113-forest48-r3';
-import {PlayerJump,PLAYER_HEIGHT,JUMP_COST} from './movement.js?v=20261113-forest48-r3';
-import {CHARACTER_PROFILES} from './horror-characters.js?v=20261113-forest48-r3';
+import {advancePlayerTravel} from './player-travel.js?v=20261113-forest49';
+import {advanceGroundActor} from './actor-travel.js?v=20261113-forest49';
+import {WatcherTactics,CreatureCadence,CREATURE_SOUND_PROFILES} from './forest-behavior.js?v=20261113-forest49';
+import {MotionResponse,LookResponse,CameraResponse,motionDelta} from './smooth-motion.js?v=20261113-forest49';
+import {GraphicsPreparation} from './preparation.js?v=20261113-forest49';
+import {installLocalization,translate,getLanguage,setLanguage,onLanguageChange,setDisplayFilter} from './i18n.js?v=20261113-forest49';
+import {consoleText,CONSOLE_TEXT_SCOPE,CONSOLE_TEXT_SKIP,creditsNodes} from './xbox.js?v=20261113-forest49';
+import {Settings} from './settings.js?v=20261113-forest49';
+import {platform} from './platform.js?v=20261113-forest49';
+import {ACHIEVEMENTS,AchievementTracker,achievementText,endOfRunAchievements} from './achievements.js?v=20261113-forest49';
+import {GamepadState,PAD_ACTIONS,PAD_GLYPHS,padText,nextFocus} from './gamepad.js?v=20261113-forest49';
+import {ITEMS,iconFor,hasContents,takeContents,interactionScore} from './inventory.js?v=20261113-forest49';
+import {TRAIN,inTrain,footNoise} from './sound-horror.js?v=20261113-forest49';
+import {SWAMP,MILL,PIT,ROOTS,inSwamp,inMill,inPit} from './expedition.js?v=20261113-forest49';
+import {HandAction,FearPacing,StormClock,CHAPEL,inChapel,surfaceAt} from './weather-horror.js?v=20261113-forest49';
+import {PursuitSight,CROUCH_HEIGHT,ATTIC_FLOOR,PHOTO_SECRETS,lookedAt,playerLevel} from './exploration.js?v=20261113-forest49';
+import {StoryNight,WatcherMemory,phaseAt} from './story.js?v=20261113-forest49';
+import {Forest,heightAt,seeded} from './world.js?v=20261113-forest49';
+import {cemeteryReserved} from './horror-director.js?v=20261113-forest49';
+import {inBasementRoom,onStairs} from './encounters.js?v=20261113-forest49';
+import {HorrorDirector,CEMETERY} from './horror-director.js?v=20261113-forest49';
+import {Run,formatTime} from './core.js?v=20261113-forest49';
+import {ForestAudio} from './audio.js?v=20261113-forest49';
+import {PlayerJump,PLAYER_HEIGHT,JUMP_COST} from './movement.js?v=20261113-forest49';
+import {CHARACTER_PROFILES} from './horror-characters.js?v=20261113-forest49';
 const keyboardHint=document.getElementById('controlsHint').textContent;
 for(const node of document.querySelectorAll('[data-key]'))node.dataset.label=node.textContent;
+// Xbox console edition: controller only, TV layout, keys in the static texts become controller buttons,
+// 720p or 1080p frames (2K, 4K and the screen's own size belong to computers), Ultra only on Series X.
+if(platform.xbox){
+ document.body.classList.add('xbox');for(const node of document.querySelectorAll('.xbox-only'))node.hidden=false;
+ setDisplayFilter((text,node)=>{const el=node.parentElement;return el?.closest(CONSOLE_TEXT_SCOPE)&&!el.closest(CONSOLE_TEXT_SKIP)?consoleText(text):text;});
+ document.getElementById('resolution').replaceChildren(...[['hd','HD · 1280×720'],['fhd','Full HD · 1920×1080']].map(([value,label])=>new Option(label,value)));
+ if(!/series x/i.test(platform.device))document.querySelector('#quality option[value="ultra"]')?.remove();
+}
 installLocalization(document);
 const $=id=>document.getElementById(id),keys=new Set(),audio=new ForestAudio(),touch={x:0,y:0};
 const watcherTactics=new WatcherTactics(),creatureCadence=new CreatureCadence();
@@ -39,6 +48,7 @@ const level=()=>playerLevel(forest.camera.position.x,forest.camera.position.z,ju
 const bodyHeight=()=>crouched?CROUCH_HEIGHT:PLAYER_HEIGHT;
 let sensitivity=.002,headBob=true,lastHud=-Infinity,lastSceneFrame=-Infinity,radioUntil=0;
 const storage=(()=>{try{return window.localStorage;}catch{return null;}})(),settings=new Settings(storage).load();
+if(platform.xbox)settings.useDefaults(platform.graphics());
 let invertY=false,padRate=1,usingPad=false,dangerNow=0,lastSceneState=null,runFacts={wounded:false,abandoned:false,listenerHit:false};
 const gamepad=new GamepadState(),padMove={x:0,y:0},padLook={x:0,y:0},padHeld={sprint:false,dynamo:false};
 const achievements=new AchievementTracker(storage,a=>announceAchievement(a));
@@ -47,7 +57,7 @@ if(settings.get('language'))setLanguage(settings.get('language'));
 // First launch without a chosen language: English unless the system speaks Russian (or a close neighbour).
 else if(!new URLSearchParams(location.search).has('lang')&&!/^(ru|uk|be|kk)\b/i.test(navigator.language||'ru'))setLanguage('en');
 onLanguageChange(language=>{settings.set('language',language);platform.setLanguage(language);renderAchievements();if(announceAchievement.current)fillAchievementToast(announceAchievement.current);});
-const coarse=matchMedia('(pointer:coarse)').matches;
+const coarse=!platform.xbox&&matchMedia('(pointer:coarse)').matches;
 const preparation=new GraphicsPreparation(()=>forest.prepareGraphics(),value=>{ready=value;$('start').disabled=$('resume').disabled=!value;$('start').textContent=value?'ВОЙТИ В ЛЕС':'ПОДГОТАВЛИВАЕМ СВЕТ И ЭФФЕКТЫ…';$('graphicsStatus').hidden=value;$('graphicsStatus').textContent='ПОДГОТАВЛИВАЕМ СВЕТ И ЭФФЕКТЫ…';});
 $('start').disabled=true;$('start').textContent='ГОТОВИМ ЛЕС…';
 const RELOAD_KEY='do-rassveta.reload';
@@ -585,7 +595,7 @@ function creatureSounds(){
 // ── PC edition: settings, controller, achievements, desktop shell, live menu ──
 function applySettings(){
  // Touch devices start on the light preset unless the player chose otherwise.
- const quality=settings.has('quality')?settings.get('quality'):coarse?'low':'high';
+ const quality=settings.has('quality')||platform.xbox?settings.get('quality'):coarse?'low':'high';
  forest.setQuality(quality);forest.setResolution(settings.get('resolution'));forest.renderer.toneMappingExposure=settings.get('brightness')/100;
  forest.setFov(settings.get('fov'));forest.cinematic=settings.get('cinematic');forest.setParticles(settings.get('particles'));
  audio.setVolume(settings.get('volume')/100);sensitivity=settings.get('sensitivity')/37500;headBob=settings.get('bobbing');invertY=settings.get('invertY');padRate=settings.get('padSensitivity')/100;
@@ -615,6 +625,7 @@ function announceAchievement(a){
  renderAchievements();
 }
 
+const PAD_HINT_TV='ЛЕВЫЙ СТИК — идти · ПРАВЫЙ — осмотр · RT — бег · A — прыжок · B — присесть · X — взять · ⧉ — рюкзак · ☰ — пауза';
 const PAD_HINT='ЛЕВЫЙ СТИК — идти   ПРАВЫЙ СТИК — осмотреться   RT — бежать   A — прыжок   B — присесть   X — взять   Y — фонарь   LT — динамо   LB — бросить   RB — фальшфейер   ↑ — аптечка   ← — еда   → — вода   ↓ — чужой фонарь   L3 — записи   R3 — снимок   ⧉ — рюкзак   ☰ — пауза';
 function connectedPad(){const pads=[...(navigator.getGamepads?.()||[])].filter(p=>p&&p.connected);return pads.find(p=>p.mapping==='standard')||pads[0]||null;}
 function rumble(strong,weak,duration){
@@ -622,14 +633,16 @@ function rumble(strong,weak,duration){
  try{Promise.resolve(actuator.playEffect('dual-rumble',{duration,strongMagnitude:strong,weakMagnitude:weak})).catch(()=>{});}catch{}
 }
 function setInputMode(pad){
+ // The console edition is played with a controller only.
+ if(platform.xbox)pad=true;
  if(usingPad===pad)return;usingPad=pad;document.body.classList.toggle('gamepad',pad);
  for(const node of document.querySelectorAll('[data-key]'))node.textContent=pad?(PAD_GLYPHS[node.dataset.key]||node.dataset.label):node.dataset.label;
- $('controlsHint').textContent=pad?PAD_HINT:keyboardHint;
+ $('controlsHint').textContent=pad?(platform.xbox?PAD_HINT_TV:PAD_HINT):keyboardHint;
  if(pad&&document.pointerLockElement)document.exitPointerLock();
 }
 // The topmost thing a controller is talking to: a dialog, a panel, a screen, or the night itself (null).
 function uiLayer(){
- for(const id of ['settings','help','achievementsDialog'])if($(id).open)return $(id);
+ for(const id of ['creditsDialog','settings','help','achievementsDialog'])if($(id)?.open)return $(id);
  for(const id of ['containerPanel','packPanel','photoPanel','journalPanel'])if(!$(id).hidden)return $(id);
  for(const id of ['ending','pause','menu'])if(!$(id).hidden)return $(id);
  return null;
@@ -657,9 +670,15 @@ function pressFocused(layer){
  control.click();
 }
 function padBack(layer){
- if(['settings','help','achievementsDialog'].includes(layer.id)){layer.close();return;}
+ if(['creditsDialog','settings','help','achievementsDialog'].includes(layer.id)){layer.close();return;}
  if(['containerPanel','packPanel','photoPanel','journalPanel'].includes(layer.id)){closePanels(isPlaying());return;}
  if(layer.id==='pause')resume();
+}
+// Long texts (rules, credits, achievements) scroll with up and down; at either end the focus moves on.
+const TEXT_LAYERS=['help','creditsDialog','achievementsDialog'];
+function scrollText(layer,step){
+ if(!TEXT_LAYERS.includes(layer.id)||step.dx||!step.dy)return false;
+ const before=layer.scrollTop;layer.scrollTop+=step.dy*Math.max(60,Math.round(layer.clientHeight*.4));return layer.scrollTop!==before;
 }
 function pollPad(now){
  const state=gamepad.read(connectedPad(),now);
@@ -669,7 +688,8 @@ function pollPad(now){
  if(!usingPad)return;
  const layer=uiLayer();
  if(layer){
-  if(state.navigate)moveFocus(layer,state.navigate.dx,state.navigate.dy);
+  if(state.navigate&&!scrollText(layer,state.navigate))moveFocus(layer,state.navigate.dx,state.navigate.dy);
+  if(TEXT_LAYERS.includes(layer.id)&&Math.abs(state.look.y)>.05)layer.scrollTop+=state.look.y*26;
   if(state.pressed.has('A'))pressFocused(layer);
   if(state.pressed.has('B'))padBack(layer);
   if(state.pressed.has('START')){if(layer.id==='menu')start();else if(layer.id==='pause')resume();}
@@ -699,10 +719,14 @@ setInterval(()=>{if(!document.hidden)updateMenuMode();},500);
 
 // Desktop (Steam) build: quit buttons, real fullscreen, Steam language and achievements.
 $('quitGame').onclick=()=>platform.quit();$('pauseQuit').onclick=()=>platform.quit();
-function pcEdition(version){const edition=$('edition');edition.textContent='ВЕРСИЯ ДЛЯ ПК ';const b=document.createElement('b');b.textContent=version||'1.0';edition.append(b);}
+function pcEdition(version,label='ВЕРСИЯ ДЛЯ ПК '){const edition=$('edition');edition.textContent=label;const b=document.createElement('b');b.textContent=version||'1.0';edition.append(b);}
 platform.init().then(()=>{
  // The installed web app (Microsoft Store) on a computer is the PC edition too, not a browser tab.
  if(!platform.desktop&&matchMedia('(display-mode: standalone), (display-mode: fullscreen), (display-mode: minimal-ui)').matches&&matchMedia('(pointer: fine)').matches)pcEdition('1.0');
+ if(platform.xbox){
+  pcEdition(platform.version.split('.').slice(0,2).join('.'),'ВЕРСИЯ ДЛЯ XBOX ');
+  if(!settings.has('language')&&platform.language)setLanguage(platform.language);
+ }
  if(!platform.desktop)return;
  document.body.classList.add('desktop');$('quitGame').hidden=$('pauseQuit').hidden=$('displayModeRow').hidden=false;
  pcEdition(platform.version.split('.').slice(0,2).join('.'));
@@ -714,3 +738,17 @@ platform.init().then(()=>{
  platform.setFullscreen('query').then(v=>{$('displayMode').value=v?'fullscreen':'window';});
 });
 renderAchievements();
+
+// ── Xbox console edition ──
+if(platform.xbox){
+ setInputMode(true);
+ // The guide, another app or a suspended game pauses the night; it never resumes by itself.
+ platform.onHost('deactivate',()=>pause());
+ platform.onHost('suspend',()=>{pause();audio.setActive(false);});
+ // Credits and licenses inside the game: the console cannot open the web page.
+ $('creditsOpen').onclick=async()=>{
+  const dialog=$('creditsDialog'),box=$('creditsText');
+  if(!box.childElementCount){try{const response=await fetch('credits.html');if(!response.ok)throw new Error(response.status);box.replaceChildren(...creditsNodes(document,await response.text()));}catch{box.textContent='Список авторов не загрузился.';}}
+  if(!dialog.open)dialog.showModal();dialog.scrollTop=0;$('creditsClose').focus();
+ };
+}

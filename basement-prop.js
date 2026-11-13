@@ -1,6 +1,6 @@
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {createHorrorCharacter} from './horror-characters.js?v=20261113-forest48-r3';
+import {createHorrorCharacter} from './horror-characters.js?v=20261113-forest49';
 
 // An adult woman in weathered clothes, supported by palms and knees.
 export function buildBasementDoll(basement,f){

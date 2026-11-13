@@ -1,6 +1,6 @@
 import * as T from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {createFrontDepthSampler} from './anatomical-head.js?v=20261113-forest48-r3';
+import {createFrontDepthSampler} from './anatomical-head.js?v=20261113-forest49';
 
 // Five persistent people, authored once during asset preparation. They share
 // texture maps and unchanged body geometry, but never facial vertex buffers.

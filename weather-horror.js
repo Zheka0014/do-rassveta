@@ -1,5 +1,5 @@
-import {expeditionRoof,inMill,inSwamp,onBoardwalk} from './expedition.js?v=20261113-forest48-r3';
-import {inTrain,trainRoof} from './sound-horror.js?v=20261113-forest48-r3';
+import {expeditionRoof,inMill,inSwamp,onBoardwalk} from './expedition.js?v=20261113-forest49';
+import {inTrain,trainRoof} from './sound-horror.js?v=20261113-forest49';
 // Active-time rules shared by the scene and the survival loop. No persistence.
 export const CHAPEL={x:-24,z:-44,y:.8821256017802659,halfX:3,halfZ:4};
 export const CHAPEL_KEY={x:-2.2,z:-13.3,feetY:.23};

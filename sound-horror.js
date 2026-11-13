@@ -1,4 +1,4 @@
-import {damp} from './smooth-motion.js?v=20261113-forest48-r3';
+import {damp} from './smooth-motion.js?v=20261113-forest49';
 // All clocks below advance with the current life; nothing is persisted.
 export const TRAIN={x:24,z:52,y:.65,floor:1.23,halfX:1.55,halfZ:8.5};
 export const FALL_TREES=[{x:-8,z:16,dx:9,dz:-1},{x:11,z:-7,dx:6,dz:-7},{x:34,z:43,dx:-7,dz:5}];

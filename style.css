@@ -139,3 +139,48 @@ body.gamepad #crosshair{opacity:.75}
 /* Web version: credits and privacy policy links at the end of the help dialog. */
 .help-links a{color:#d9c79c;text-decoration:none;border-bottom:1px solid #d9c79c55}
 .help-links a:hover,.help-links a:focus-visible{color:#fff;border-bottom-color:#fff}
+/* Xbox console edition. The console draws the app at 2× (960×540 CSS pixels on a 1080p screen).
+   Menus and the HUD keep 5 % from every edge for TVs that crop the picture, small labels grow so
+   they read from a sofa, and there is no cursor, keyboard help, touch controls, links or window buttons. */
+body.xbox{--safe-x:48px;--safe-y:27px;cursor:none}
+body.xbox .pc-only,body.xbox .browser-only,body.xbox #touchControls,body.xbox #fullscreenMenu,body.xbox #fullscreenGame,body.xbox #quitGame,body.xbox #pauseQuit,body.xbox #displayModeRow{display:none!important}
+body.xbox .menu{padding:34px max(var(--safe-x),5.5vw) 32px!important}
+body.xbox #hud{padding-left:var(--safe-x)!important;padding-right:var(--safe-x)!important}
+body.xbox .hud-top{left:var(--safe-x)!important;right:var(--safe-x)!important;top:max(var(--safe-y),30px)!important}
+body.xbox .hud-bottom{left:var(--safe-x)!important;right:var(--safe-x)!important;bottom:max(48px,calc(var(--safe-y) + 22px))!important}
+body.xbox #controlsHint{left:var(--safe-x)!important;right:var(--safe-x)!important;bottom:var(--safe-y)!important}
+body.xbox #achievementToast{top:calc(var(--safe-y) + 6px)}
+body.xbox .pause,body.xbox .ending{padding:var(--safe-y) var(--safe-x)}
+body.xbox dialog{max-height:calc(100vh - 2*var(--safe-y) - 8px)}
+#creditsDialog{width:min(760px,calc(100% - 2*var(--safe-x,16px)))}
+.credits-text{font-size:13px;line-height:1.65;color:#c0cbb5;overflow-wrap:anywhere}
+.credits-text h2{font-size:24px;letter-spacing:0;margin:20px 0 10px}
+.credits-text h3{font-family:Georgia,serif;font-weight:400;font-size:18px;color:#e1e2cc;margin:22px 0 8px}
+.credits-text ul{padding-left:18px}
+.credits-text li{margin-bottom:6px}
+.credits-text code{font-size:12px}
+
+/* Xbox main menu: the whole menu fits the TV-safe area of a 960×540 layout without scrolling.
+   The language follows the console (and stays in the settings). */
+body.xbox .language-choice{display:none!important}
+body.xbox .intro{padding:10px 0 12px!important}
+body.xbox .intro h1{font-size:62px!important;margin:12px 0 14px!important;letter-spacing:-2px}
+body.xbox .lead{margin-bottom:14px}
+body.xbox .menu-footer{padding-top:12px!important}
+body.xbox .story-note>span,body.xbox .story-note>div,body.xbox .edition b{font-size:12px}
+body.xbox .menu-footer .headphone{display:none}
+body.xbox .menu-footer .text-button{white-space:nowrap}
+body.xbox .menu-footer #helpOpen{margin-left:auto}
+/* Xbox HUD and windows inside the TV-safe area; no mouse-only buttons. */
+body.xbox #pauseButton{display:none!important}
+body.xbox #explorationHud{margin-left:0!important}
+body.xbox #packToggle{right:var(--safe-x)!important}
+body.xbox #journalToggle{right:calc(var(--safe-x) + 138px)!important}
+body.xbox #packPanel,body.xbox #containerPanel{max-height:calc(100dvh - 2*var(--safe-y) - 8px)!important;width:min(830px,calc(100vw - 2*var(--safe-x)))!important}
+body.xbox.panel-open #journalPanel,body.xbox.panel-open #photoPanel,body.xbox #journalPanel,body.xbox #photoPanel{max-height:calc(100dvh - 2*var(--safe-y) - 8px)!important}
+body.xbox #controlsHint{font-size:12px!important;letter-spacing:.2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+/* Labels that read from a sofa: at least 12 CSS px (24 px on a 1080p TV). */
+body.xbox .menu-footer span,body.xbox .location span,body.xbox .clock>span,body.xbox #locationLabel,body.xbox #modeLabel,body.xbox kbd,
+body.xbox #explorationHud,body.xbox #explorationHud button,body.xbox .vitals span,body.xbox .vitals b,body.xbox .inventory span,
+body.xbox #handAction,body.xbox .storage-footnote,body.xbox .end-stats span,body.xbox #questText,body.xbox #radioMessage{font-size:12px!important}
+

@@ -1,47 +1,47 @@
-import {CollisionGrid} from './collision-grid.js?v=20261113-forest48-r3';
-import {enableLocalLightCulling,batchStaticMeshes} from './render-batching.js?v=20261113-forest48-r3';
-import {attachFoliageShadows} from './foliage-shadows.js?v=20261113-forest48-r3';
-import {createShadowFilter} from './shadow-filter.js?v=20261113-forest48-r3';
-import {updateGroundCover} from './plant-culling.js?v=20261113-forest48-r3';
-import {frontToBack} from './instance-order.js?v=20261113-forest48-r3';
-import {buildLivingForest} from './living-forest-scene.js?v=20261113-forest48-r3';
-import {RainField} from './rain-field.js?v=20261113-forest48-r3';
-import {RainSurfaceCache} from './render-detail.js?v=20261113-forest48-r3';
-import {turnActor} from './smooth-motion.js?v=20261113-forest48-r3';
-import {loadCharacterAssets,createHorrorCharacter,animateCharacter,characterMotion} from './horror-characters.js?v=20261113-forest48-r3';
-import {buildPlayerBody} from './player-body.js?v=20261113-forest48-r3';
-import {buildCrate} from './crate-model.js?v=20261113-forest48-r3';
-import {buildSoundScene} from './sound-scene.js?v=20261113-forest48-r3';
-import {trainTerrain,trainFloor,inTrain,TRAIN} from './sound-horror.js?v=20261113-forest48-r3';
-import {buildExpeditionScene} from './expedition-scene.js?v=20261113-forest48-r3';
-import {expeditionTerrain,expeditionFloor,inPit,onBoardwalk,MILL,PIT} from './expedition.js?v=20261113-forest48-r3';
-import {buildChapelScene} from './chapel-scene.js?v=20261113-forest48-r3';
-import {CHAPEL,inChapel,roofAt} from './weather-horror.js?v=20261113-forest48-r3';
-import {buildExplorationScene} from './exploration-scene.js?v=20261113-forest48-r3';
-import {inAttic,ATTIC_FLOOR,lineBlocked,playerLevel} from './exploration.js?v=20261113-forest48-r3';
-import {buildStoryScene} from './story-scene.js?v=20261113-forest48-r3';
-import {buildNightScene} from './night-scene.js?v=20261113-forest48-r3';
-import {cabinFloor,cabinCeiling} from './encounters.js?v=20261113-forest48-r3';
-import {encounterReserved,CRATE_SITES} from './encounters.js?v=20261113-forest48-r3';
+import {CollisionGrid} from './collision-grid.js?v=20261113-forest49';
+import {enableLocalLightCulling,batchStaticMeshes} from './render-batching.js?v=20261113-forest49';
+import {attachFoliageShadows} from './foliage-shadows.js?v=20261113-forest49';
+import {createShadowFilter} from './shadow-filter.js?v=20261113-forest49';
+import {updateGroundCover} from './plant-culling.js?v=20261113-forest49';
+import {frontToBack} from './instance-order.js?v=20261113-forest49';
+import {buildLivingForest} from './living-forest-scene.js?v=20261113-forest49';
+import {RainField} from './rain-field.js?v=20261113-forest49';
+import {RainSurfaceCache} from './render-detail.js?v=20261113-forest49';
+import {turnActor} from './smooth-motion.js?v=20261113-forest49';
+import {loadCharacterAssets,createHorrorCharacter,animateCharacter,characterMotion} from './horror-characters.js?v=20261113-forest49';
+import {buildPlayerBody} from './player-body.js?v=20261113-forest49';
+import {buildCrate} from './crate-model.js?v=20261113-forest49';
+import {buildSoundScene} from './sound-scene.js?v=20261113-forest49';
+import {trainTerrain,trainFloor,inTrain,TRAIN} from './sound-horror.js?v=20261113-forest49';
+import {buildExpeditionScene} from './expedition-scene.js?v=20261113-forest49';
+import {expeditionTerrain,expeditionFloor,inPit,onBoardwalk,MILL,PIT} from './expedition.js?v=20261113-forest49';
+import {buildChapelScene} from './chapel-scene.js?v=20261113-forest49';
+import {CHAPEL,inChapel,roofAt} from './weather-horror.js?v=20261113-forest49';
+import {buildExplorationScene} from './exploration-scene.js?v=20261113-forest49';
+import {inAttic,ATTIC_FLOOR,lineBlocked,playerLevel} from './exploration.js?v=20261113-forest49';
+import {buildStoryScene} from './story-scene.js?v=20261113-forest49';
+import {buildNightScene} from './night-scene.js?v=20261113-forest49';
+import {cabinFloor,cabinCeiling} from './encounters.js?v=20261113-forest49';
+import {encounterReserved,CRATE_SITES} from './encounters.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {loadForestAsset} from './assets.js?v=20261113-forest48-r3';
-import {loadPropLods,attachPropLods,updatePropLods} from './prop-lod.js?v=20261113-forest48-r3';
-import {ForestPost} from './post.js?v=20261113-forest48-r3';
-import {buildGroundCover} from './ground-cover.js?v=20261113-forest48-r3';
-import {buildCabin} from './cabin.js?v=20261113-forest48-r3';
-import {wetForestMaterial} from './surfaces.js?v=20261113-forest48-r3';
-import {createFire,updateFire,createFlare,updateFlare} from './fire.js?v=20261113-forest48-r3';
-import {flashlightCookie,configureMoon} from './lighting.js?v=20261113-forest48-r3';
-import {buildSaplings,updateSaplings} from './saplings.js?v=20261113-forest48-r3';
-import {createNightSky} from './sky.js?v=20261113-forest48-r3';
-import {renderScale} from './resolution.js?v=20261113-forest48-r3';
-import {buildAtmosphereFx} from './atmosphere-fx.js?v=20261113-forest48-r3';
+import {loadForestAsset} from './assets.js?v=20261113-forest49';
+import {loadPropLods,attachPropLods,updatePropLods} from './prop-lod.js?v=20261113-forest49';
+import {ForestPost} from './post.js?v=20261113-forest49';
+import {buildGroundCover} from './ground-cover.js?v=20261113-forest49';
+import {buildCabin} from './cabin.js?v=20261113-forest49';
+import {wetForestMaterial} from './surfaces.js?v=20261113-forest49';
+import {createFire,updateFire,createFlare,updateFlare} from './fire.js?v=20261113-forest49';
+import {flashlightCookie,configureMoon} from './lighting.js?v=20261113-forest49';
+import {buildSaplings,updateSaplings} from './saplings.js?v=20261113-forest49';
+import {createNightSky} from './sky.js?v=20261113-forest49';
+import {renderScale} from './resolution.js?v=20261113-forest49';
+import {buildAtmosphereFx} from './atmosphere-fx.js?v=20261113-forest49';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {buildRainDetails} from './rain-details.js?v=20261113-forest48-r3';
-import {buildViewmodel} from './viewmodel.js?v=20261113-forest48-r3';
-import {buildHorrorScene} from './horror-scene.js?v=20261113-forest48-r3';
-import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261113-forest48-r3';
-import {canOccupy,supportHeight} from './movement.js?v=20261113-forest48-r3';
+import {buildRainDetails} from './rain-details.js?v=20261113-forest49';
+import {buildViewmodel} from './viewmodel.js?v=20261113-forest49';
+import {buildHorrorScene} from './horror-scene.js?v=20261113-forest49';
+import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261113-forest49';
+import {canOccupy,supportHeight} from './movement.js?v=20261113-forest49';
 
 export function seeded(seed) { return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t ^= t + Math.imul(t ^ t >>> 7, 61 | t); return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
 export function heightAt(x,z){
@@ -273,7 +273,7 @@ export class Forest {
     const ratio=renderScale(this.renderResolution,innerWidth,innerHeight,devicePixelRatio,this.quality),limit=this.renderer.capabilities.maxTextureSize/Math.max(innerWidth,innerHeight);
     this.renderer.setPixelRatio(Math.min(ratio,limit));this.renderer.setSize(innerWidth,innerHeight);this.post?.resize();this.onResolutionChange?.(this.canvas.width,this.canvas.height);
   }
-  setResolution(value){if(!['auto','fhd','qhd','uhd','native'].includes(value))return;this.renderResolution=value;this.perfFrames=this.perfSeconds=0;this.applyResolution();}
+  setResolution(value){if(!['auto','hd','fhd','qhd','uhd','native'].includes(value))return;this.renderResolution=value;this.perfFrames=this.perfSeconds=0;this.applyResolution();}
   setQuality(value){if(!['low','high','ultra'].includes(value))return;const anisotropy=value==='ultra'?16:8;if((this.quality==='ultra')!==(value==='ultra'))this.setAnisotropy(anisotropy);this.quality=value;this.perfFrames=this.perfSeconds=0;if(this.groundMaterial)this.groundMaterial.userData.surfaceUniforms.groundDetail.value=value!=='low'?1:0;this.applyResolution();this.renderer.shadowMap.enabled=value!=='low';this.rain.visible=value!=='low';this.coverDistance.value=value==='ultra'?44:value==='high'?30:18;this.flash.shadow.needsUpdate=true;this.fx?.setEnabled(this.fx.enabled);if(value!=='low'){this.staticShadowsDirty=true;this.scene.traverse(o=>{if(o.isLight&&o.shadow)o.shadow.needsUpdate=true;});}this.post?.resize();}
   // Camera field of view in degrees (vertical).
   setFov(degrees){const fov=clamp(Number(degrees)||65,55,90);if(Math.abs(this.camera.fov-fov)<.01)return;this.camera.fov=fov;this.camera.updateProjectionMatrix();this.post?.resize();this.treeCullPosition?.set(999,999,999);this.saplingCullPosition?.set(999,999,999);this.coverCullPosition?.set(999,999,999);}

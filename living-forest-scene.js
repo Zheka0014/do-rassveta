@@ -1,8 +1,8 @@
 import * as T from './vendor/three.module.js';
-import {LivingForest} from './forest-behavior.js?v=20261113-forest48-r3';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
-import {lookedAt} from './exploration.js?v=20261113-forest48-r3';
-import {batchStaticMeshes} from './render-batching.js?v=20261113-forest48-r3';
+import {LivingForest} from './forest-behavior.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {lookedAt} from './exploration.js?v=20261113-forest49';
+import {batchStaticMeshes} from './render-batching.js?v=20261113-forest49';
 
 export function buildLivingForest(f,heightAt){
  const sites=[{id:'trail',x:-5.25,z:-2.8},{id:'cabin',x:-1.9,z:-8.6},{id:'camp',x:-5.4,z:2.4}],logic=new LivingForest(sites),root=new T.Group();root.name='Лес меняется';f.scene.add(root);

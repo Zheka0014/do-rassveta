@@ -1,10 +1,10 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest48-r3';
-import {turnActor} from './smooth-motion.js?v=20261113-forest48-r3';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
-import {createHorrorCharacter,animateCharacter,characterMotion} from './horror-characters.js?v=20261113-forest48-r3';
-import {buildCrate} from './crate-model.js?v=20261113-forest48-r3';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
+import {turnActor} from './smooth-motion.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {createHorrorCharacter,animateCharacter,characterMotion} from './horror-characters.js?v=20261113-forest49';
+import {buildCrate} from './crate-model.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {SoundNight,TRAIN,FALL_TREES} from './sound-horror.js?v=20261113-forest48-r3';
+import {SoundNight,TRAIN,FALL_TREES} from './sound-horror.js?v=20261113-forest49';
 function batch(parent){const bins=new Map();return {add(g,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){g.applyMatrix4(new T.Matrix4().compose(new T.Vector3(x,y,z),new T.Quaternion().setFromEuler(new T.Euler(rx,ry,rz)),new T.Vector3(1,1,1)));if(!bins.has(m))bins.set(m,[]);bins.get(m).push(g);},box(w,h,d,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){this.add(new T.BoxGeometry(w,h,d),m,x,y,z,rx,ry,rz);},done(){for(const [m,gs]of bins){const mesh=new T.Mesh(mergeRetainedGeometry(gs),m);mesh.castShadow=mesh.receiveShadow=true;parent.add(mesh);gs.forEach(g=>g.dispose());}}};}
 function paintedTexture(text='',cloth=false){const c=document.createElement('canvas');c.width=c.height=512;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle=cloth?'#303b32':'#535d50';a.fillRect(0,0,512,512);let seed=431;for(let i=0;i<9500;i++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const x=seed%512,y=(seed>>>9)%512;a.fillStyle=cloth?'rgba(150,145,110,.15)':i%3?'rgba(19,25,20,.18)':'rgba(127,61,26,.50)';a.fillRect(x,y,cloth?2:1+i%9,cloth?1:2+i%27);}if(!cloth){a.fillStyle='rgba(190,178,134,.22)';a.fillRect(0,290,512,14);a.fillStyle='#c3b78e';a.font='bold 52px monospace';a.textAlign='center';text.split('\n').forEach((s,i)=>a.fillText(translate(s),256,180+i*68,480));}};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);map.wrapS=map.wrapT=T.RepeatWrapping;return map;}
 export function buildSoundScene(f,heightAt){

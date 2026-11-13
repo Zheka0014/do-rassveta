@@ -1,8 +1,8 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest48-r3';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
-import {createHorrorCharacter,animateCharacter} from './horror-characters.js?v=20261113-forest48-r3';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {createHorrorCharacter,animateCharacter} from './horror-characters.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {ExplorationNight,EXPLORE_POINTS,PHOTO_SECRETS,RARE_SITES,ATTIC_FLOOR} from './exploration.js?v=20261113-forest48-r3';
+import {ExplorationNight,EXPLORE_POINTS,PHOTO_SECRETS,RARE_SITES,ATTIC_FLOOR} from './exploration.js?v=20261113-forest49';
 const V=(x,y,z)=>new T.Vector3(x,y,z);
 function batch(parent){const bins=new Map();return {add(g,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){g.applyMatrix4(new T.Matrix4().compose(V(x,y,z),new T.Quaternion().setFromEuler(new T.Euler(rx,ry,rz)),V(1,1,1)));if(!bins.has(m))bins.set(m,[]);bins.get(m).push(g);},done(){for(const [m,gs]of bins){const mesh=new T.Mesh(mergeRetainedGeometry(gs),m);mesh.castShadow=mesh.receiveShadow=true;parent.add(mesh);gs.forEach(g=>g.dispose());}}};}
 function label(text,hidden=false){const c=document.createElement('canvas');c.width=1024;c.height=512;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);if(!hidden){a.fillStyle='#34382c';a.fillRect(0,0,c.width,c.height);}a.fillStyle=hidden?'#dae1c5':'#c2bc9f';a.font='bold 72px Georgia';a.textAlign='center';text.split('\n').forEach((s,i)=>a.fillText(translate(s),512,160+i*106,940));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return hidden?new T.MeshBasicMaterial({map,transparent:true,depthWrite:false}):new T.MeshStandardMaterial({map,roughness:1});}

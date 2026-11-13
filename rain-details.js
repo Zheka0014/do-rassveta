@@ -1,7 +1,7 @@
-import {roofAt,CHAPEL} from './weather-horror.js?v=20261113-forest48-r3';
-import {MILL} from './expedition.js?v=20261113-forest48-r3';
+import {roofAt,CHAPEL} from './weather-horror.js?v=20261113-forest49';
+import {MILL} from './expedition.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {wrapRainCoordinate} from './rain-field.js?v=20261113-forest48-r3';
+import {wrapRainCoordinate} from './rain-field.js?v=20261113-forest49';
 
 // Sparse ground impacts share one draw. Their world positions are refreshed
 // only after walking out of the local patch; lifetimes run on the GPU.

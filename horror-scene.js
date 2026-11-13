@@ -1,11 +1,11 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest48-r3';
-import {SuspendedMotion} from './passive-motion.js?v=20261113-forest48-r3';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
-import {createHangingCharacter} from './horror-characters.js?v=20261113-forest48-r3';
-import {poseHanging} from './hanging-pose.js?v=20261113-forest48-r3';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
+import {SuspendedMotion} from './passive-motion.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {createHangingCharacter} from './horror-characters.js?v=20261113-forest49';
+import {poseHanging} from './hanging-pose.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {CEMETERY} from './horror-director.js?v=20261113-forest48-r3';
+import {CEMETERY} from './horror-director.js?v=20261113-forest49';
 
 const V=(x,y,z)=>new T.Vector3(x,y,z);
 function tube(a,b,r,segments=7){const d=b.clone().sub(a),g=new T.CylinderGeometry(r*.8,r,d.length(),segments);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));g.translate(...a.clone().add(b).multiplyScalar(.5).toArray());return g;}

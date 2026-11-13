@@ -1,6 +1,6 @@
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest48-r3';
+import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {STORY_ITEMS} from './story.js?v=20261113-forest48-r3';
+import {STORY_ITEMS} from './story.js?v=20261113-forest49';
 export function buildStoryScene(f,heightAt){
  const root=new T.Group();root.name='Следы пропавшего брата';f.scene.add(root);
  const iron=new T.MeshStandardMaterial({color:0x5a5447,metalness:.6,roughness:.65}),paper=new T.MeshStandardMaterial({color:0xb7ac86,roughness:1}),wood=new T.MeshStandardMaterial({map:f.texture('weathered_planks-diff-2k.jpg',1,true),normalMap:f.texture('weathered_planks-nor_gl-2k.jpg'),color:0x817966,roughness:.91});

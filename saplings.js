@@ -1,9 +1,9 @@
-import {encounterReserved} from './encounters.js?v=20261113-forest48-r3';
+import {encounterReserved} from './encounters.js?v=20261113-forest49';
 import * as T from './vendor/three.module.js';
-import {attachFoliageShadows} from './foliage-shadows.js?v=20261113-forest48-r3';
-import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261113-forest48-r3';
-import {loadForestAsset} from './assets.js?v=20261113-forest48-r3';
-import {frontToBack} from './instance-order.js?v=20261113-forest48-r3';
+import {attachFoliageShadows} from './foliage-shadows.js?v=20261113-forest49';
+import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261113-forest49';
+import {loadForestAsset} from './assets.js?v=20261113-forest49';
+import {frontToBack} from './instance-order.js?v=20261113-forest49';
 
 // All three photographic saplings share textures across both geometry levels.
 export async function buildSaplings(forest,heightAt){
