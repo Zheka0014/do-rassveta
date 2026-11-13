@@ -45,5 +45,33 @@ export function creditsNodes(doc,html){
  });
  // The page heading repeats the dialog title.
  const first=main.querySelector('h1');if(first)first.remove();
+ // The PC and Steam shell (Electron, steamworks.js) is not part of the console edition: its section goes.
+ for(const head of [...main.querySelectorAll('h2,h3')]){
+  if(!/Steam/.test(head.textContent))continue;
+  let next=head.nextElementSibling;
+  while(next&&!/^H[23]$/.test(next.tagName)){const after=next.nextElementSibling;next.remove();next=after;}
+  head.remove();
+ }
  return [...main.childNodes].map(node=>doc.importNode(node,true));
+}
+
+// What the console package adds instead: the Xbox app itself, the WebView2 SDK inside the package (its
+// BSD-style licence asks for the notice in the materials shipped with it; the build copies the licence file
+// from the SDK into the package) and WinUI 2.
+export const XBOX_CREDITS=[
+ 'Оболочка для Xbox — UWP-приложение на C#, создано для проекта. Значки, плитки и заставка консольной версии тоже созданы для проекта.',
+ 'Microsoft Edge WebView2 SDK (Microsoft.Web.WebView2) — © Microsoft Corporation, лицензия в стиле BSD; её текст ниже.',
+ 'WinUI 2 (Microsoft.UI.Xaml) — © Microsoft Corporation, лицензия MIT (github.com/microsoft/microsoft-ui-xaml).'
+];
+export function xboxCreditsNodes(doc,licence){
+ const head=doc.createElement('h3');head.textContent='Версия для Xbox';
+ const list=doc.createElement('ul');
+ for(const text of XBOX_CREDITS){const item=doc.createElement('li');item.textContent=text;list.append(item);}
+ const nodes=[head,list];
+ if(licence&&licence.trim()){
+  const pre=doc.createElement('pre');pre.textContent=licence.trim();
+  pre.style.cssText='white-space:pre-wrap;font:12px/1.5 ui-monospace,Consolas,monospace;margin:10px 0 0';
+  nodes.push(pre);
+ }
+ return nodes;
 }

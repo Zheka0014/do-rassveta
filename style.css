@@ -184,3 +184,5 @@ body.xbox .menu-footer span,body.xbox .location span,body.xbox .clock>span,body.
 body.xbox #explorationHud,body.xbox #explorationHud button,body.xbox .vitals span,body.xbox .vitals b,body.xbox .inventory span,
 body.xbox #handAction,body.xbox .storage-footnote,body.xbox .end-stats span,body.xbox #questText,body.xbox #radioMessage{font-size:12px!important}
 
+body.xbox #fuelText,body.xbox #toolsText,body.xbox .loot-row small,body.xbox .pack-card button,body.xbox .pack-card small,
+body.xbox .storage-header .eyebrow,body.xbox .storage-load span,body.xbox .storage-vitals,body.xbox #packToggle kbd,body.xbox .loot-row button{font-size:12px!important}

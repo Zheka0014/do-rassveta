@@ -4,7 +4,7 @@ import {WatcherTactics,CreatureCadence,CREATURE_SOUND_PROFILES} from './forest-b
 import {MotionResponse,LookResponse,CameraResponse,motionDelta} from './smooth-motion.js?v=20261113-forest49';
 import {GraphicsPreparation} from './preparation.js?v=20261113-forest49';
 import {installLocalization,translate,getLanguage,setLanguage,onLanguageChange,setDisplayFilter} from './i18n.js?v=20261113-forest49';
-import {consoleText,CONSOLE_TEXT_SCOPE,CONSOLE_TEXT_SKIP,creditsNodes} from './xbox.js?v=20261113-forest49';
+import {consoleText,CONSOLE_TEXT_SCOPE,CONSOLE_TEXT_SKIP,creditsNodes,xboxCreditsNodes} from './xbox.js?v=20261113-forest49';
 import {Settings} from './settings.js?v=20261113-forest49';
 import {platform} from './platform.js?v=20261113-forest49';
 import {ACHIEVEMENTS,AchievementTracker,achievementText,endOfRunAchievements} from './achievements.js?v=20261113-forest49';
@@ -748,7 +748,10 @@ if(platform.xbox){
  // Credits and licenses inside the game: the console cannot open the web page.
  $('creditsOpen').onclick=async()=>{
   const dialog=$('creditsDialog'),box=$('creditsText');
-  if(!box.childElementCount){try{const response=await fetch('credits.html');if(!response.ok)throw new Error(response.status);box.replaceChildren(...creditsNodes(document,await response.text()));}catch{box.textContent='Список авторов не загрузился.';}}
+  if(!box.childElementCount){try{const response=await fetch('credits.html');if(!response.ok)throw new Error(response.status);
+   // The WebView2 SDK licence is copied into the package by the console build (absent on the website).
+   let licence='';try{const file=await fetch('licenses/webview2-sdk.txt');if(file.ok)licence=await file.text();}catch{}
+   box.replaceChildren(...creditsNodes(document,await response.text()),...xboxCreditsNodes(document,licence));}catch{box.textContent='Список авторов не загрузился.';}}
   if(!dialog.open)dialog.showModal();dialog.scrollTop=0;$('creditsClose').focus();
  };
 }
