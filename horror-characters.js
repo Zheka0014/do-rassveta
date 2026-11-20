@@ -1,11 +1,11 @@
-import {prepareSkeletalCharacter,cloneSkeleton,animateSkeletalCharacter} from './skeletal-character.js?v=20261113-forest49';
+import {prepareSkeletalCharacter,cloneSkeleton,animateSkeletalCharacter} from './skeletal-character.js?v=20261120-forest50';
 import * as T from './vendor/three.module.js';
 import {GLTFLoader} from './vendor/addons/loaders/GLTFLoader.js';
-import {PlantedGait,solveLeg,supportDrop} from './character-gait.js?v=20261113-forest49';
-import {makeSculptMaterials,CHARACTER_PROFILES} from './character-sculpt.js?v=20261113-forest49';
-import {buildHangingIdentity,HANGING_IDENTITIES} from './hanging-identities.js?v=20261113-forest49';
-import {prepareBasementWoman,animateBasementWoman} from './basement-woman.js?v=20261113-forest49';
-export {CHARACTER_PROFILES,createFaceGeometry,faceDepth} from './character-sculpt.js?v=20261113-forest49';
+import {PlantedGait,solveLeg,supportDrop} from './character-gait.js?v=20261120-forest50';
+import {makeSculptMaterials,CHARACTER_PROFILES} from './character-sculpt.js?v=20261120-forest50';
+import {buildHangingIdentity,HANGING_IDENTITIES} from './hanging-identities.js?v=20261120-forest50';
+import {prepareBasementWoman,animateBasementWoman} from './basement-woman.js?v=20261120-forest50';
+export {CHARACTER_PROFILES,createFaceGeometry,faceDepth} from './character-sculpt.js?v=20261120-forest50';
 const assets=new WeakMap(),rigs=new WeakMap(),motion=new WeakMap();
 const footUp=new T.Vector3(0,1,0),footWorld=new T.Quaternion(),footParent=new T.Quaternion();
 function microNormal(cloth=false,size=256){
@@ -16,13 +16,13 @@ function microNormal(cloth=false,size=256){
 function resources(f){
  if(assets.has(f))return assets.get(f);
  const r={models:new Map(),pending:[]},loader=new T.TextureLoader(),tasks=[];
- function texture(name){let map;tasks.push(new Promise((resolve,reject)=>{map=loader.load(new URL('./assets/textures/'+name+'?v=20261113-forest49',import.meta.url).href,resolve,undefined,reject);}));map.flipY=false;map.colorSpace=T.SRGBColorSpace;map.anisotropy=8;return map;}
+ function texture(name){let map;tasks.push(new Promise((resolve,reject)=>{map=loader.load(new URL('./assets/textures/'+name+'?v=20261120-forest50',import.meta.url).href,resolve,undefined,reject);}));map.flipY=false;map.colorSpace=T.SRGBColorSpace;map.anisotropy=8;return map;}
  r.materials=makeSculptMaterials({skinAtlas:texture('npc-surface-v35.png'),clothAtlas:texture('npc-cloth-v35.png'),skinNormal:microNormal(),clothNormal:microNormal(true)});
  const named=new Map();for(const value of Object.values(r.materials))for(const mat of Array.isArray(value)?value:[value])named.set(mat.name,mat);
  const gltf=new GLTFLoader();
- tasks.push(gltf.loadAsync(new URL('./assets/characters-v41/basement-woman.glb?v=20261113-forest49',import.meta.url).href).then(asset=>r.models.set('basement-woman',prepareBasementWoman(asset))));
- tasks.push(Promise.all([gltf.loadAsync(new URL('./assets/characters-v36/watcher.glb?v=20261113-forest49',import.meta.url).href),fetch(new URL('./assets/characters-v36/watcher-motion.json?v=20261113-forest49',import.meta.url)).then(response=>{if(!response.ok)throw new Error('Watcher animation download failed');return response.json();})]).then(([asset,data])=>{r.watcher=prepareSkeletalCharacter(asset,data,CHARACTER_PROFILES.watcher.height);}));
- for(const kind of Object.keys(CHARACTER_PROFILES))tasks.push(gltf.loadAsync(new URL('./assets/characters-v35/'+kind+'.glb?v=20261113-forest49',import.meta.url).href).then(asset=>{
+ tasks.push(gltf.loadAsync(new URL('./assets/characters-v41/basement-woman.glb?v=20261120-forest50',import.meta.url).href).then(asset=>r.models.set('basement-woman',prepareBasementWoman(asset))));
+ tasks.push(Promise.all([gltf.loadAsync(new URL('./assets/characters-v36/watcher.glb?v=20261120-forest50',import.meta.url).href),fetch(new URL('./assets/characters-v36/watcher-motion.json?v=20261120-forest50',import.meta.url)).then(response=>{if(!response.ok)throw new Error('Watcher animation download failed');return response.json();})]).then(([asset,data])=>{r.watcher=prepareSkeletalCharacter(asset,data,CHARACTER_PROFILES.watcher.height);}));
+ for(const kind of Object.keys(CHARACTER_PROFILES))tasks.push(gltf.loadAsync(new URL('./assets/characters-v35/'+kind+'.glb?v=20261120-forest50',import.meta.url).href).then(asset=>{
   const prototype=asset.scene.children[0],replaced=new Set(),sides=new Map();
   prototype.traverse(o=>{if(!o.isMesh)return;const old=o.material;let mat=named.get(old.name);if(!mat)throw new Error('Unknown character material: '+old.name);if(old.side===T.DoubleSide&&mat.side!==T.DoubleSide){if(!sides.has(mat)){const clone=mat.clone();clone.side=T.DoubleSide;sides.set(mat,clone);}mat=sides.get(mat);}o.material=mat;o.castShadow=o.receiveShadow=true;o.updateMatrix();o.matrixAutoUpdate=false;replaced.add(old);});
   for(const old of replaced){old.map?.dispose();old.dispose();}r.models.set(kind,prototype);
@@ -106,4 +106,4 @@ export function animateCharacter(root,t,{moving=false,running=false,freeze=false
   }
  }
 }
-import {damp,dampAngle} from './smooth-motion.js?v=20261113-forest49';
+import {damp,dampAngle} from './smooth-motion.js?v=20261120-forest50';

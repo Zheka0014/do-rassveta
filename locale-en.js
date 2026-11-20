@@ -169,7 +169,7 @@ export const EN = Object.freeze({
   "В избе есть лестница на чердак. E — подняться и спуститься; наверху нужно пригнуться. На карте отмечены новые места. Если тропа возвращает к дереву 17, сверни на запад и иди вдоль ручья на север.": "The cabin has a ladder to the attic. E climbs up or down; crouch upstairs. New places are marked on the map. If the trail returns you to tree 17, turn west and follow the creek north.",
   "Брошенная машина, палатка и оборванный телефон появляются по-разному в каждой попытке. Припасы иногда сопровождаются шумом.": "The abandoned car, tent and broken telephone appear in different places each run. Supplies may come with a noise.",
   "Ты ищешь пропавшего брата Лёшу. Журнал — в избе, запись и предохранитель — в подвале, жетон — на кладбище. Генератор расположен на западе, антенна — на северо-востоке. На все предметы действует E. J — записи и задачи.": "You are searching for your missing brother Lyosha. The journal is in the cabin, the tape and fuse in the basement, and the dog tag in the cemetery. The generator is west; the antenna is northeast. E interacts with all of them. J opens your journal and objectives.",
-  "C — съесть порцию, V — выпить воду. I — рюкзак, его вместимость 14 единиц. Невзятые припасы остаются на месте. Выброшенные вещи теряются.": "C eats a portion, V drinks water. I opens your backpack, which holds 14 units. Untaken supplies stay put. Dropped items are lost.",
+  "C — съесть порцию, V — выпить воду. I — рюкзак, его вместимость 14 единиц. Невзятые припасы остаются на месте. Выброшенные вещи теряются.": "C eats a portion, V drinks water. Press I to open your backpack, which holds 14 units. Untaken supplies stay put. Dropped items are lost.",
   "Ищи припасы в ящиках у фонарей. Подойди и нажми ": "Look for supplies in crates near lamps. Walk up and press ",
   "Ищи припасы в ящиках у фонарей. Подойди и нажми": "Look for supplies in crates near lamps. Walk up and press",
   "Пробел": "Space",
@@ -811,5 +811,8 @@ export const EN = Object.freeze({
   "Геймпад: левый стик — идти, правый — осмотреться, RT — бежать, A — прыжок, B — присесть, X — взять или открыть, Y — фонарь, LT — динамо, LB — бросить камень, RB — фальшфейер, крестовина — аптечка, еда, вода и чужой фонарь, L3 — записи, R3 — снимок, кнопка «Вид» — рюкзак с остальными действиями, «Меню» — пауза. В меню: крестовина — выбор, A — нажать, B — назад.": "Controller: left stick — walk, right stick — look around, RT — run, A — jump, B — crouch, X — take or open, Y — flashlight, LT — dynamo, LB — throw a stone, RB — flare, d-pad — first aid kit, food, water and the foreign flashlight, L3 — journal, R3 — photo, View button — backpack with the other actions, Menu — pause. In menus: d-pad — choose, A — press, B — back.",
   "ЛЕВЫЙ СТИК — идти   ПРАВЫЙ СТИК — осмотреться   RT — бежать   A — прыжок   B — присесть   X — взять   Y — фонарь   LT — динамо   LB — бросить   RB — фальшфейер   ↑ — аптечка   ← — еда   → — вода   ↓ — чужой фонарь   L3 — записи   R3 — снимок   ⧉ — рюкзак   ☰ — пауза": "LEFT STICK — walk   RIGHT STICK — look   RT — run   A — jump   B — crouch   X — take   Y — flashlight   LT — dynamo   LB — throw   RB — flare   ↑ — first aid   ← — food   → — water   ↓ — foreign flashlight   L3 — journal   R3 — photo   ⧉ — backpack   ☰ — pause",
   "Конфиденциальность": "Privacy",
-  "Авторы и лицензии": "Credits and licenses"
+  "Авторы и лицензии": "Credits and licenses",
+  // Achievements list: templates filled by format()
+  "Открыто {n} из {total}.": "Unlocked {n} of {total}.",
+  " Они появляются и в вашем профиле Steam.": " They also appear in your Steam profile."
 });

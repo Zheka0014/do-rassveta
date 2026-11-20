@@ -1,12 +1,12 @@
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
+import {translate,localizeCanvas} from './i18n.js?v=20261120-forest50';
 import * as T from './vendor/three.module.js';
-import {STORY_ITEMS} from './story.js?v=20261113-forest49';
+import {STORY_ITEMS} from './story.js?v=20261120-forest50';
 export function buildStoryScene(f,heightAt){
  const root=new T.Group();root.name='Следы пропавшего брата';f.scene.add(root);
  const iron=new T.MeshStandardMaterial({color:0x5a5447,metalness:.6,roughness:.65}),paper=new T.MeshStandardMaterial({color:0xb7ac86,roughness:1}),wood=new T.MeshStandardMaterial({map:f.texture('weathered_planks-diff-2k.jpg',1,true),normalMap:f.texture('weathered_planks-nor_gl-2k.jpg'),color:0x817966,roughness:.91});
  function mesh(g,m,parent,x,y,z){const o=new T.Mesh(g,m);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;parent.add(o);return o;}
  function box(w,h,d,m,p,x=0,y=0,z=0){return mesh(new T.BoxGeometry(w,h,d),m,p,x,y,z);}
- function label(text){const c=document.createElement('canvas');c.width=512;c.height=256;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle='#242b21';a.fillRect(0,0,512,256);a.fillStyle='#d8d0ae';a.textAlign='center';a.font='bold 33px sans-serif';text.split('\n').forEach((s,i)=>a.fillText(translate(s),256,90+i*62,470));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return new T.MeshStandardMaterial({map,roughness:.9});}
+ function label(text){const c=document.createElement('canvas');c.width=512;c.height=256;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle='#242b21';a.fillRect(0,0,512,256);a.fillStyle='#d8d0ae';a.textAlign='center';a.font='bold 33px sans-serif';translate(text).split('\n').forEach((s,i)=>a.fillText(s,256,90+i*62,470));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return new T.MeshStandardMaterial({map,roughness:.9});}
  const items=STORY_ITEMS.map(data=>{const p=new T.Group(),feet=data.level==='lower'?-2.75:data.level==='upper'?.23:heightAt(data.x,data.z);p.position.set(data.x,feet,data.z);root.add(p);
   if(data.id==='generator'){box(1.15,.65,.6,iron,p,0,.4,0);for(const x of [-.45,.45])box(.08,.8,.75,iron,p,x,.4,0);for(let i=0;i<8;i++)box(.032,.35,.028,wood,p,-.32+i*.075,.44,.32);box(.45,.14,.22,iron,p,0,.87,0);box(.8,.45,.02,label('КОРДОН 04\nГЕНЕРАТОР'),p,0,.5,.337);f.colliders.push({x:data.x,z:data.z,r:.6,top:feet+.95});}
   else if(data.id==='antenna'){mesh(new T.CylinderGeometry(.045,.10,6,16),iron,p,0,3,0);for(const y of [3.6,4.8,5.8]){box(2,.025,.025,iron,p,0,y,0);box(.025,.03,1.6,iron,p,0,y,.1);}box(.6,.55,.24,iron,p,0,1.1,0);box(.58,.52,.025,label('РЕЗЕРВ\nЧАСТОТА 04'),p,0,1.1,.14);f.colliders.push({x:data.x,z:data.z,r:.22,top:feet+6});}

@@ -5,6 +5,9 @@ const bridge=typeof window==='object'&&window.desktop&&typeof window.desktop.inf
 const xboxHost=typeof window==='object'&&window.xboxHost&&typeof window.xboxHost.on==='function'?window.xboxHost:null;
 const consoleInfo=xboxHost&&xboxHost.info&&typeof xboxHost.info==='object'?xboxHost.info:{};
 const safe=async(call,fallback)=>{if(!bridge)return fallback;try{return await call();}catch{return fallback;}};
+// The shells report the console or Steam language as one of the game's language codes (as in i18n.js).
+const SHIPPED=['ru','en','de','fr','es','pt-BR','it','pl','tr','uk','zh-CN','ja','ko'];
+const shipped=code=>SHIPPED.includes(code)?code:'';
 
 // Starting graphics for each console model; the player can still change the preset in the settings.
 // Xbox One and One S have a slow processor and graphics: the performance preset at 720p and a still menu.
@@ -18,12 +21,12 @@ export function consoleGraphics(device){
 
 export const platform={
  desktop:!!bridge,xbox:!!xboxHost,steam:false,deck:false,
- language:consoleInfo.language==='en'||consoleInfo.language==='ru'?consoleInfo.language:'',version:String(consoleInfo.version||''),device:String(consoleInfo.device||''),
+ language:shipped(consoleInfo.language),version:String(consoleInfo.version||''),device:String(consoleInfo.device||''),
  // Resolves once the shell has answered (immediately in a browser and on the console).
  async init(){
   if(xboxHost)return this;
   const info=await safe(()=>bridge.info(),null);
-  if(info){this.steam=!!info.steam;this.deck=!!info.deck;this.language=info.language==='en'||info.language==='ru'?info.language:'';this.version=String(info.version||'');}
+  if(info){this.steam=!!info.steam;this.deck=!!info.deck;this.language=shipped(info.language);this.version=String(info.version||'');}
   return this;
  },
  // Console shell events: 'suspend' (the console put the game aside), 'deactivate' (the guide or

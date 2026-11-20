@@ -24,7 +24,12 @@ export const ACHIEVEMENTS=Object.freeze([
 export const ACHIEVEMENT_KEY='do-rassveta.achievements.v1';
 const KNOWN=new Set(ACHIEVEMENTS.map(a=>a.id));
 export const achievementById=id=>ACHIEVEMENTS.find(a=>a.id===id)||null;
-export function achievementText(achievement,language='ru'){return language==='en'?achievement.en:{name:achievement.name,text:achievement.text};}
+// Russian is the source; other languages take [name, text] from their locale table by id, with English as the fallback.
+export function achievementText(achievement,language='ru',table=null){
+ if(language==='ru')return {name:achievement.name,text:achievement.text};
+ const own=language!=='en'&&table?.[achievement.id];
+ return own?{name:own[0],text:own[1]}:achievement.en;
+}
 
 export class AchievementTracker{
  constructor(storage=null,notify=()=>{},key=ACHIEVEMENT_KEY){this.storage=storage;this.notify=notify;this.key=key;this.done=new Map();this.load();}

@@ -1,4 +1,4 @@
-import {PLAYER_RADIUS} from './movement.js?v=20261113-forest49';
+import {PLAYER_RADIUS} from './movement.js?v=20261120-forest50';
 // Static horizontal bounds, live obstacle references: opening doors, disarmed
 // traps and newly revealed graves retain their current active/height values.
 // Call invalidate() if an obstacle's horizontal bounds are moved in the future.

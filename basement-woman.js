@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {basementBreathPhase,basementBreathOffset} from './basement-motion.js?v=20261113-forest49';
+import {basementBreathPhase,basementBreathOffset} from './basement-motion.js?v=20261120-forest50';
 const motion=new WeakMap();
 
 // The adult body and authored outfit are skinned and posed offline. Keep a

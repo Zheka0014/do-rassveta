@@ -7,7 +7,8 @@ export const DEFAULT_SETTINGS=Object.freeze({
  cinematic:true,particles:true,liveMenu:true,padSensitivity:100,vibration:true
 });
 const RANGES={volume:[0,100],sensitivity:[20,180],brightness:[75,155],fov:[55,90],padSensitivity:[40,200]};
-const CHOICES={language:['','ru','en'],quality:['low','high','ultra'],resolution:['auto','hd','fhd','qhd','uhd','native']};
+// The same codes as LANGUAGE_CODES in i18n.js ('' = not chosen yet: the system or store language decides).
+const CHOICES={language:['','ru','en','de','fr','es','pt-BR','it','pl','tr','uk','zh-CN','ja','ko'],quality:['low','high','ultra'],resolution:['auto','hd','fhd','qhd','uhd','native']};
 const FLAGS=['bobbing','invertY','cinematic','particles','liveMenu','vibration'];
 
 // Returns the accepted value, or undefined for anything that does not belong to the key.

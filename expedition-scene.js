@@ -1,12 +1,12 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
-import {buildCrate} from './crate-model.js?v=20261113-forest49';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261120-forest50';
+import {translate,localizeCanvas} from './i18n.js?v=20261120-forest50';
+import {buildCrate} from './crate-model.js?v=20261120-forest50';
 import * as T from './vendor/three.module.js';
-import {ExpeditionNight,SWAMP,MILL,PIT,ROOTS,PERCHES} from './expedition.js?v=20261113-forest49';
-import {buildCabinMirror} from './cabin-mirror.js?v=20261113-forest49';
+import {ExpeditionNight,SWAMP,MILL,PIT,ROOTS,PERCHES} from './expedition.js?v=20261120-forest50';
+import {buildCabinMirror} from './cabin-mirror.js?v=20261120-forest50';
 const v=(x,y,z)=>new T.Vector3(x,y,z);
 function batch(parent){const bins=new Map();return {add(g,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){g.applyMatrix4(new T.Matrix4().compose(v(x,y,z),new T.Quaternion().setFromEuler(new T.Euler(rx,ry,rz)),v(1,1,1)));if(!bins.has(m))bins.set(m,[]);bins.get(m).push(g);},box(w,h,d,m,x=0,y=0,z=0,rx=0,ry=0,rz=0){this.add(new T.BoxGeometry(w,h,d),m,x,y,z,rx,ry,rz);},done(){for(const [m,gs]of bins){const mesh=new T.Mesh(mergeRetainedGeometry(gs),m);mesh.castShadow=mesh.receiveShadow=true;parent.add(mesh);gs.forEach(g=>g.dispose());}}};}
-function plate(text,w=1024,h=512){const c=document.createElement('canvas');c.width=w;c.height=h;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle='#343b31';a.fillRect(0,0,w,h);for(let i=0;i<1800;i++){a.fillStyle='rgba(12,16,9,.10)';a.fillRect((i*137)%w,(i*71)%h,1+(i%11),2+(i%4));}a.strokeStyle='#9b9980';a.lineWidth=5;a.strokeRect(25,25,w-50,h-50);a.fillStyle='#c2b89a';a.font='bold 62px Georgia';a.textAlign='center';text.split('\n').forEach((s,i)=>a.fillText(translate(s),w/2,150+i*105,w-90));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return new T.MeshStandardMaterial({map,roughness:.96});}
+function plate(text,w=1024,h=512){const c=document.createElement('canvas');c.width=w;c.height=h;const a=c.getContext('2d');const draw=()=>{a.clearRect(0,0,c.width,c.height);a.fillStyle='#343b31';a.fillRect(0,0,w,h);for(let i=0;i<1800;i++){a.fillStyle='rgba(12,16,9,.10)';a.fillRect((i*137)%w,(i*71)%h,1+(i%11),2+(i%4));}a.strokeStyle='#9b9980';a.lineWidth=5;a.strokeRect(25,25,w-50,h-50);a.fillStyle='#c2b89a';a.font='bold 62px Georgia';a.textAlign='center';translate(text).split('\n').forEach((s,i)=>a.fillText(s,w/2,150+i*105,w-90));};const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;localizeCanvas(map,draw);return new T.MeshStandardMaterial({map,roughness:.96});}
 function rustMap(){const c=document.createElement('canvas');c.width=c.height=512;const a=c.getContext('2d'),data=a.createImageData(512,512);let seed=827;for(let y=0;y<512;y++)for(let x=0;x<512;x++){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const r=seed/4294967296,patch=Math.sin(x*.037+Math.sin(y*.013))*Math.cos(y*.025)+r*.5,streak=Math.max(0,Math.sin(x*.19)-.8)*Math.sin(y*.003+.4),i=(y*512+x)*4;data.data.set(patch>.2?[86+r*26+streak*40,48+r*17,27+r*11,255]:[39+r*30,46+r*24,43+r*20,255],i);}a.putImageData(data,0,0);const map=new T.CanvasTexture(c);map.colorSpace=T.SRGBColorSpace;map.wrapS=map.wrapT=T.RepeatWrapping;return map;}
 export function buildExpeditionScene(f,heightAt){
  const logic=new ExpeditionNight(),root=new T.Group();root.name='Болото и лесопилка';f.scene.add(root);

@@ -4,6 +4,6 @@ First-person survival horror that lasts one night. Хоррор-выживани
 
 - Play / Играть: [index.html](index.html)
 - Privacy policy / Политика конфиденциальности: [privacy.html](privacy.html)
-- Credits and licences / Авторы и лицензии: [credits.html](credits.html)
+- Credits and licenses: [credits-en.html](credits-en.html) · Авторы и лицензии: [credits.html](credits.html)
 
-Build 20261113-forest49.
+Build 20261120-forest50.

@@ -54,9 +54,11 @@ export class ForestAudio {
  overhead(){this.creak(-.4);for(const d of [.15,.6,1.1])this.noise(.25,.2,540,-.4,d);}
  doorSlam(){this.noise(.45,.38,620,0);this.tone(61,.65,.14,29);this.chain(.3);}
  radioMessage(text,pan=0,language='ru'){this.radio(pan);if(!this.active||!window.speechSynthesis||!window.SpeechSynthesisUtterance)return;
-  // The voice follows the interface language; a line that is still partly Russian stays silent in English.
-  const code=language==='en'?'en':'ru';if(code==='en'&&/[А-Яа-яЁё]/.test(text))return;
-  const voice=window.speechSynthesis.getVoices().find(v=>v.localService&&v.lang.toLowerCase().startsWith(code));if(!voice)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.voice=voice;u.lang=voice.lang||(code==='en'?'en-US':'ru-RU');u.rate=.83;u.pitch=.65;u.volume=this.volume*.7;this.speaking=true;u.onend=u.onerror=()=>{this.speaking=false;};window.speechSynthesis.speak(u);}
+  // The voice follows the interface language (a local voice of the same language, the regional one first);
+  // a line that is still partly Russian stays silent in a language without Cyrillic.
+  const code=String(language||'ru').toLowerCase(),base=code.split('-')[0];if(base!=='ru'&&base!=='uk'&&/[А-Яа-яЁё]/.test(text))return;
+  const tag=v=>String(v.lang||'').toLowerCase().replace('_','-'),voices=window.speechSynthesis.getVoices().filter(v=>v.localService);
+  const voice=voices.find(v=>tag(v)===code)||voices.find(v=>tag(v).split('-')[0]===base);if(!voice)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.voice=voice;u.lang=voice.lang||language;u.rate=.83;u.pitch=.65;u.volume=this.volume*.7;this.speaking=true;u.onend=u.onerror=()=>{this.speaking=false;};window.speechSynthesis.speak(u);}
  camera(){this.noise(.08,.4,3600);this.tone(900,.12,.05,330);this.noise(.27,.12,950,0,.16);}
  pickup(){this.noise(.14,.2,2600);this.tone(480,.13,.05,630);}
  creature(kind,position,gain=1){

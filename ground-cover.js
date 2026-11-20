@@ -1,9 +1,9 @@
-import {loadPropLods,attachPropLods} from './prop-lod.js?v=20261113-forest49';
-import {encounterReserved} from './encounters.js?v=20261113-forest49';
+import {loadPropLods,attachPropLods} from './prop-lod.js?v=20261120-forest50';
+import {encounterReserved} from './encounters.js?v=20261120-forest50';
 import * as T from './vendor/three.module.js';
-import {initializePlantCulling} from './plant-culling.js?v=20261113-forest49';
-import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261113-forest49';
-import {loadForestAsset} from './assets.js?v=20261113-forest49';
+import {initializePlantCulling} from './plant-culling.js?v=20261120-forest50';
+import {cemeteryReserved,horrorPropReserved} from './horror-director.js?v=20261120-forest50';
+import {loadForestAsset} from './assets.js?v=20261120-forest50';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 
 // One stream per asset: with a shared generator the layout depended on which

@@ -1,6 +1,6 @@
 // Xbox console edition: texts and credits without a keyboard, a mouse or links.
 // Pure functions without the DOM (except creditsNodes), so the rules can be tested in node.
-import {PAD_GLYPHS} from './gamepad.js?v=20261113-forest49';
+import {PAD_GLYPHS,SPACE_NAMES} from './gamepad.js?v=20261120-forest50';
 
 // Texts that name keys outside the controller hints: the help list, the pause screen, the backpack
 // and crate windows ("Зажечь · G", "E у костра") and the barricade button. Left alone: the controller
@@ -10,7 +10,8 @@ export const CONSOLE_TEXT_SCOPE='#help li, #pausePack, #packPanel, #containerPan
 export const CONSOLE_TEXT_SKIP='.pad-help, #packFeedback, #containerFeedback, #packThreat, #containerThreat';
 
 const KEYS={E:'KeyE',F:'KeyF',R:'KeyR',H:'KeyH',G:'KeyG',C:'KeyC',V:'KeyV',Q:'KeyQ',X:'KeyX',B:'KeyB',J:'KeyJ',I:'KeyI',P:'KeyP',T:'KeyT',K:'KeyK',N:'KeyN',
- CTRL:'ControlLeft',Ctrl:'ControlLeft',TAB:'Tab',Tab:'Tab',ESC:'Escape',Esc:'Escape',SHIFT:'ShiftLeft',Shift:'ShiftLeft','ПРОБЕЛ':'Space','Пробел':'Space',SPACE:'Space',Space:'Space'};
+ CTRL:'ControlLeft',Ctrl:'ControlLeft',STRG:'ControlLeft',Strg:'ControlLeft',TAB:'Tab',Tab:'Tab',ESC:'Escape',Esc:'Escape',SHIFT:'ShiftLeft',Shift:'ShiftLeft',
+ ...Object.fromEntries(SPACE_NAMES.map(name=>[name,'Space']))};
 // A word joiner marks buttons that are already right, so the key pass below leaves them alone.
 const J='⁠',button=name=>J+name+J;
 // Closing a window is B on the controller (the keyboard text says Esc or E / Esc); a page reload
@@ -22,13 +23,16 @@ const FIXES=[
  ['выход и обновление страницы завершают попытку','выход из игры завершает попытку'],['leaving or refreshing the page ends your run','leaving the game ends your run'],
  [' На телефоне нажми «Прыжок».',''],[' On a phone, tap “Jump”.','']
 ];
-// Whole words only: "R3", "L3" or "If" are not keys.
-const KEY_WORD=new RegExp('(^|[^A-Za-zА-Яа-яЁё0-9'+J+'])('+Object.keys(KEYS).sort((a,b)=>b.length-a.length).join('|')+')(?=$|[^A-Za-zА-Яа-яЁё0-9'+J+'])','g');
+// Whole words of any alphabet only: "R3", "L3", "If", "ÇI" are not keys, and neither is an elision
+// such as French "C'est" or Italian "C'è" (a letter right after the apostrophe).
+const KEY_WORD=new RegExp('(^|[^\\p{L}\\p{N}'+J+'])('+Object.keys(KEYS).sort((a,b)=>b.length-a.length).join('|')+')(?=$|[\'’](?!\\p{L})|[^\\p{L}\\p{N}\'’'+J+'])','gu');
 
 // "I или Tab — рюкзак… E у ящика… Esc закрывает окно" → "⧉ или ⧉ — рюкзак… X у ящика… B закрывает окно".
-export function consoleText(text){
+// extra: the same fixes for the other languages ([from, to] from the locale file, {B} = the B button).
+export function consoleText(text,extra=null){
  let out=String(text??'');
  for(const [from,to] of FIXES)out=out.split(from).join(to);
+ if(extra)for(const [from,to] of extra)out=out.split(from).join(to.split('{B}').join(button('B')));
  out=out.replace(KEY_WORD,(match,lead,word)=>lead+(PAD_GLYPHS[KEYS[word]]||word));
  return out.split(J).join('');
 }
@@ -58,15 +62,21 @@ export function creditsNodes(doc,html){
 // What the console package adds instead: the Xbox app itself, the WebView2 SDK inside the package (its
 // BSD-style licence asks for the notice in the materials shipped with it; the build copies the licence file
 // from the SDK into the package) and WinUI 2.
+// Russian next to the Russian credits page, English next to the English one (every other language).
 export const XBOX_CREDITS=[
  'Оболочка для Xbox — UWP-приложение на C#, создано для проекта. Значки, плитки и заставка консольной версии тоже созданы для проекта.',
  'Microsoft Edge WebView2 SDK (Microsoft.Web.WebView2) — © Microsoft Corporation, лицензия в стиле BSD; её текст ниже.',
  'WinUI 2 (Microsoft.UI.Xaml) — © Microsoft Corporation, лицензия MIT (github.com/microsoft/microsoft-ui-xaml).'
 ];
-export function xboxCreditsNodes(doc,licence){
- const head=doc.createElement('h3');head.textContent='Версия для Xbox';
+export const XBOX_CREDITS_EN=[
+ 'Xbox shell — a UWP app in C#, made for the project. The icons, tiles and splash screen of the console edition were also made for the project.',
+ 'Microsoft Edge WebView2 SDK (Microsoft.Web.WebView2) — © Microsoft Corporation, BSD-style license; its text is below.',
+ 'WinUI 2 (Microsoft.UI.Xaml) — © Microsoft Corporation, MIT license (github.com/microsoft/microsoft-ui-xaml).'
+];
+export function xboxCreditsNodes(doc,licence,english=false){
+ const head=doc.createElement('h3');head.textContent=english?'Xbox edition':'Версия для Xbox';
  const list=doc.createElement('ul');
- for(const text of XBOX_CREDITS){const item=doc.createElement('li');item.textContent=text;list.append(item);}
+ for(const text of english?XBOX_CREDITS_EN:XBOX_CREDITS){const item=doc.createElement('li');item.textContent=text;list.append(item);}
  const nodes=[head,list];
  if(licence&&licence.trim()){
   const pre=doc.createElement('pre');pre.textContent=licence.trim();

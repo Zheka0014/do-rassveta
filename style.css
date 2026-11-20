@@ -186,3 +186,4 @@ body.xbox #handAction,body.xbox .storage-footnote,body.xbox .end-stats span,body
 
 body.xbox #fuelText,body.xbox #toolsText,body.xbox .loot-row small,body.xbox .pack-card button,body.xbox .pack-card small,
 body.xbox .storage-header .eyebrow,body.xbox .storage-load span,body.xbox .storage-vitals,body.xbox #packToggle kbd,body.xbox .loot-row button{font-size:12px!important}
+:lang(zh-CN) .story-note p,:lang(ja) .story-note p,:lang(ko) .story-note p{font-style:normal}

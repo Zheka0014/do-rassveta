@@ -11,7 +11,7 @@
     * { box-sizing: border-box; } html { background: var(--bg); }
     body { margin: 0; background: var(--bg); color: var(--ink); font: 16px/1.65 Georgia, 'Times New Roman', serif; }
     main { max-width: 820px; margin: 0 auto; padding: 44px 20px 72px; }
-    nav { margin-bottom: 28px; font: 13px/1 Arial, Helvetica, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; }
+    nav { margin-bottom: 28px; font: 13px/1 Arial, Helvetica, sans-serif; letter-spacing: 1.5px; text-transform: uppercase; display: flex; flex-wrap: wrap; gap: 8px; }
     nav a { color: var(--muted); text-decoration: none; border: 1px solid var(--line); padding: 9px 14px; display: inline-block; }
     h2 { font-weight: 400; font-size: clamp(28px, 5vw, 40px); margin: 0 0 18px; }
     h3 { font-weight: 400; font-size: 22px; margin: 34px 0 8px; } h4 { font-size: 17px; margin: 24px 0 6px; }
@@ -20,8 +20,8 @@
   </style>
 </head>
 <body><main>
-  <nav><a href="./">← Играть / Play</a></nav>
-  <p class="note">Credits and licences of the models, textures, sounds and code used in Before Dawn: The Forest Remembers. Автор игры благодарит всех авторов ниже.</p>
+  <nav><a href="./">← Играть / Play</a> <a href="credits-en.html" lang="en">English</a></nav>
+  <p class="note">Credits and licenses of the models, textures, sounds and code used in Before Dawn: The Forest Remembers. Автор игры благодарит всех авторов ниже.</p>
 <h2>Источники ресурсов</h2>
 <h3>Женщина в подвале v41</h3>
 <p>Анатомия и исходный скелет — <a href="https://www.innerscene.com/tools/library/3d-parts/female-base-mesh-3d-person-rigged-a-pose-dba97ed5" rel="noopener">Female base mesh</a>; одежда, текстуры взрослой кожи, глаза, брови, ресницы, зубы и волосы — <a href="https://www.innerscene.com/tools/library/3d-parts/jordan-3d-person-athlete-a0770454" rel="noopener">Jordan</a>. Оба ресурса опубликованы Innerscene на основе MakeHuman под CC0. Для игры одежда и волосы подогнаны к анатомии, перенесены веса, поставлена поза с опорой на ладони и колени, добавлен непрозрачный тканевый слой. Поза запечена, геометрия упрощена, встроенные текстуры сжаты. Полные сведения: <a href="assets/characters-v41/ATTRIBUTION.txt">ATTRIBUTION.txt</a>. В v41 удлинена рубашка, добавлены объёмные подгибы, цвет загрязнений, один морф дыхания и зацикленный клип.</p>
@@ -58,7 +58,7 @@
 <p>Титульный лес и текстура пламени фальшфейера созданы встроенным ImageGen. Текстура пламени: <code>dist/assets/flame.png</code>; точный запрос сохранён в <code>asset-prompts/flame.txt</code>. Геометрия избы, объёмное пламя костра, модель руки с фонарём, тканевая поверхность перчатки, эффекты дождя, процедурное небо, облака и луна, постобработка, логика игры и процедурный звук созданы для этого проекта.</p>
 <p>Кладбище, ограда, надгробия, гроб, повешенные фигуры, анимации, скрип верёвок, шёпот и колокол созданы для проекта. Каменные и деревянные поверхности переиспользуют указанные выше материалы Poly Haven.</p>
 <p>Каталка, рация, костяные подвески, ткань с пятнами и их звуки также процедурно созданы для проекта.</p>
-<p>Подвал, лестница и люк, двойник, сидящие фигуры, капканы, растяжки, дополнительные могилы и следы созданы для проекта; материалы переиспользуют приведённые выше источники. Для рации используются процедурный радиошум, текстовые реплики и локальный русский голос Web Speech API, если он установлен. Пространственные шаги и звуки двери синтезируются Web Audio API.</p>
+<p>Подвал, лестница и люк, двойник, сидящие фигуры, капканы, растяжки, дополнительные могилы и следы созданы для проекта; материалы переиспользуют приведённые выше источники. Для рации используются процедурный радиошум, текстовые реплики и локальный голос Web Speech API на языке игры, если он установлен. Пространственные шаги и звуки двери синтезируются Web Audio API.</p>
 <h3>Версия для ПК и Steam (v48)</h3>
 <ul>
 <li>Оболочка для ПК — <a href="https://www.electronjs.org/" rel="noopener">Electron</a> 44, <a href="https://github.com/electron/electron/blob/main/LICENSE" rel="noopener">MIT</a>; лицензии Chromium поставляются рядом с исполняемым файлом (<code>LICENSES.chromium.html</code>).</li>

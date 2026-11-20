@@ -1,7 +1,7 @@
 import * as T from './vendor/three.module.js';
-import {VolumeDepth} from './volume-depth.js?v=20261113-forest49';
-import {createFlameVolume,createSmokeVolume,createFireSparks,fireFlicker} from './fire-volume.js?v=20261113-forest49';
-import {endGrainTexture} from './surfaces.js?v=20261113-forest49';
+import {VolumeDepth} from './volume-depth.js?v=20261120-forest50';
+import {createFlameVolume,createSmokeVolume,createFireSparks,fireFlicker} from './fire-volume.js?v=20261120-forest50';
+import {endGrainTexture} from './surfaces.js?v=20261120-forest50';
 import {mergeGeometries} from './vendor/addons/utils/BufferGeometryUtils.js';
 
 let flameMap;

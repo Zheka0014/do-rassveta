@@ -1,5 +1,5 @@
 import * as T from './vendor/three.module.js';
-import {HANGING_IDENTITIES} from './hanging-identities.js?v=20261113-forest49';
+import {HANGING_IDENTITIES} from './hanging-identities.js?v=20261120-forest50';
 
 export const NOOSE_RADIUS=.064;
 export const HANGING_ANCHOR=Object.freeze([0,-1.66,-.015]);

@@ -1,16 +1,16 @@
-import {mergeRetainedGeometry} from './render-batching.js?v=20261113-forest49';
-import {animateBasementWoman} from './basement-woman.js?v=20261113-forest49';
-import {advanceBasementBreath} from './basement-motion.js?v=20261113-forest49';
-import {turnActor} from './smooth-motion.js?v=20261113-forest49';
-import {translate,localizeCanvas} from './i18n.js?v=20261113-forest49';
-import {createHorrorCharacter,poseSeated,animateCharacter,characterMotion} from './horror-characters.js?v=20261113-forest49';
-import {buildCrate} from './crate-model.js?v=20261113-forest49';
+import {mergeRetainedGeometry} from './render-batching.js?v=20261120-forest50';
+import {animateBasementWoman} from './basement-woman.js?v=20261120-forest50';
+import {advanceBasementBreath} from './basement-motion.js?v=20261120-forest50';
+import {turnActor} from './smooth-motion.js?v=20261120-forest50';
+import {translate,localizeCanvas} from './i18n.js?v=20261120-forest50';
+import {createHorrorCharacter,poseSeated,animateCharacter,characterMotion} from './horror-characters.js?v=20261120-forest50';
+import {buildCrate} from './crate-model.js?v=20261120-forest50';
 import * as T from './vendor/three.module.js';
 import {mergeGeometries,mergeVertices} from './vendor/addons/utils/BufferGeometryUtils.js';
-import {NightEncounters,FALSE_CAMPS,TRAPS,BASEMENT,stairHeight} from './encounters.js?v=20261113-forest49';
-import {createFire,updateFire} from './fire.js?v=20261113-forest49';
-import {formatTime} from './core.js?v=20261113-forest49';
-import {buildBasementDoll} from './basement-prop.js?v=20261113-forest49';
+import {NightEncounters,FALSE_CAMPS,TRAPS,BASEMENT,stairHeight} from './encounters.js?v=20261120-forest50';
+import {createFire,updateFire} from './fire.js?v=20261120-forest50';
+import {formatTime} from './core.js?v=20261120-forest50';
+import {buildBasementDoll} from './basement-prop.js?v=20261120-forest50';
 
 const V=(x,y,z)=>new T.Vector3(x,y,z);
 function beam(a,b,r=.025){const d=b.clone().sub(a),g=new T.CylinderGeometry(r,r,d.length(),8);g.applyQuaternion(new T.Quaternion().setFromUnitVectors(V(0,1,0),d.normalize()));g.translate(...a.clone().add(b).multiplyScalar(.5).toArray());return g;}

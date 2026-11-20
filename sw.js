@@ -2,7 +2,7 @@
 // after the first visit. Each build has its own cache; an old cache is removed when
 // the new version takes over, which happens the next time the game is opened, so a
 // running night is never interrupted by an update.
-const BUILD = '20261113-forest49';
+const BUILD = '20261120-forest50';
 const CACHE = 'do-rassveta-' + BUILD;
 const CORE = ['./', './index.html', './manifest.json', './privacy.html', './icons/icon-192.png', './icons/icon-512.png'];
 
